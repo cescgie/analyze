@@ -16,7 +16,6 @@ if($result->num_rows > 0) {
 
 # JSON-encode the response
 echo $json_response = json_encode($arr);
-
 /*
 public function index(){
 	require_once '../includes/db.php'; // The mysql database connection script

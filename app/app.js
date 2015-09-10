@@ -30,6 +30,9 @@ app.controller('tasksController', function($scope, $http) {
   * Get InfoUserId from UserId & datum
   */
   $scope.getInfoUid = function (userid,datum) {
+    var fbcanvas = document.getElementById('uid');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
     $http.post("ajax/getInfoUserId.php?datum="+datum+"&userid="+userid).success(function(data){
         $scope.userids2 = data;
         console.log(datum);
@@ -50,6 +53,8 @@ app.controller('tasksController', function($scope, $http) {
   * Get InfoIpAddress from IpAddress, UserId & datum
   */
   $scope.getInfoIp = function (ip) {
+    var element = document.getElementById('ip_p');
+    element.innerHTML = "<p>Loading...</p>";
     $http.post("ajax/getInfoIpAddress.php?ip="+ip).success(function(data){
         $scope.ipaddresses = data;
         console.log(ip);
@@ -69,6 +74,9 @@ app.controller('tasksController', function($scope, $http) {
   * Get InfoUserId from UserId, WebsiteId,IpAddres & DateEntered
   */
   $scope.getInfoUidIp = function (userid,datum,webid,ip) {
+    var fbcanvas = document.getElementById('uid');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
     $http.post("ajax/getInfoUserId.php?datum="+datum+"&userid="+userid+"&webid="+webid+"&ip="+ip).success(function(data){
         $scope.userids2 = data;
         console.log(datum);
@@ -89,12 +97,28 @@ app.controller('tasksController', function($scope, $http) {
     return (elem=document.getElementById(id)).parentNode.removeChild(elem);
   }
 
-  $scope.click = function (test) {
-    $http.post("ajax/classDat/getUserId?datum="+test).success(function(data){
-      $scope.yuhus = data;
-      console.log('ok');
-      console.log(test);
-      //alert($scope.yuhus);
-    });
+  /*
+  * Get Anzahl der UserId von WebsiteId
+  */
+  $scope.getSummeUserId = function (webid,datum) {
+    $http.post("ajax/getSumUid.php?webid="+webid+"&datum="+datum).success(function(data){
+        $scope.webinfos = data;
+      });
+  };
+  /*
+  * Get InfoUserId from WebsiteId,DateEntered
+  */
+  $scope.getInfoWeb = function (webid,datum,webname) {
+    var fbcanvas = document.getElementById('verdacht');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    $http.post("ajax/getInfoWebsite.php?webid="+webid+"&datum="+datum).success(function(data){
+        console.log(webid+"_"+datum);
+
+        $scope.userids = data;
+        var fbcanvas = document.getElementById('verdacht');
+        fbcanvas.innerHTML =
+        "<p>UserId von WebsiteId <span style='color: #ff0000'>"+webname+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
+      });
   };
 });

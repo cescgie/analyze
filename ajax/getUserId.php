@@ -4,7 +4,7 @@ $status = '%';
 if(isset($_GET['datum'])){
 $datum = $_GET['datum'];
 }
-$query="SELECT UserId,Summe,Uhrzeit,DateEntered FROM userid_ga WHERE DateEntered = '$datum' AND UserId!='0000000000000000' AND Uhrzeit=24 HAVING Summe > 2000 ORDER BY Summe DESC";
+$query="SELECT UserId,Summe as Sum,Uhrzeit,DateEntered FROM userid_ga WHERE DateEntered = '$datum' AND UserId!='0000000000000000' AND Uhrzeit=24 HAVING Summe > 5000 ORDER BY Summe DESC";
 
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
