@@ -4,7 +4,7 @@ var app = angular.module('myApp', []);
 app.controller('tasksController', function($scope, $http) {
   //getTask(); // Load all available tasks
   getDatum();
-
+  //getWebName();
   /*
   * Get Datumseinträge
   */
@@ -12,6 +12,7 @@ app.controller('tasksController', function($scope, $http) {
   $http.post("ajax/getDatum.php").success(function(data){
         $scope.datums = data;
         //getInfoUid(NULL,NULL);
+        console.log('Datum ok');
        });
   };
 
@@ -35,8 +36,8 @@ app.controller('tasksController', function($scope, $http) {
     "<p>Loading...</p>";
     $http.post("ajax/getInfoUserId.php?datum="+datum+"&userid="+userid).success(function(data){
         $scope.userids2 = data;
-        console.log(datum);
-        console.log(userid);
+        //console.log(datum);
+        //console.log(userid);
         var fbcanvas = document.getElementById('uid');
         fbcanvas.innerHTML =
         "<p>UserId <span style='color: #ff0000'>"+userid+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
@@ -50,14 +51,14 @@ app.controller('tasksController', function($scope, $http) {
   };
 
   /*
-  * Get InfoIpAddress from IpAddress, UserId & datum
+  * Get InfoIpAddress from IpAddress
   */
   $scope.getInfoIp = function (ip) {
     var element = document.getElementById('ip_p');
     element.innerHTML = "<p>Loading...</p>";
     $http.post("ajax/getInfoIpAddress.php?ip="+ip).success(function(data){
         $scope.ipaddresses = data;
-        console.log(ip);
+        //console.log(ip);
         //console.log(data);
         var element = document.getElementById('ip_p');
         element.innerHTML = "<p>Info von IpAddress <span style='color: #ff0000'>"+ip+"</span></p>";
@@ -71,7 +72,7 @@ app.controller('tasksController', function($scope, $http) {
   };
 
   /*
-  * Get InfoUserId from UserId, WebsiteId,IpAddres & DateEntered
+  * Get InfoUserId from UserId, WebsiteId,IpAddress & DateEntered
   */
   $scope.getInfoUidIp = function (userid,datum,webid,ip) {
     var fbcanvas = document.getElementById('uid');
@@ -79,11 +80,9 @@ app.controller('tasksController', function($scope, $http) {
     "<p>Loading...</p>";
     $http.post("ajax/getInfoUserId.php?datum="+datum+"&userid="+userid+"&webid="+webid+"&ip="+ip).success(function(data){
         $scope.userids2 = data;
-        console.log(datum);
-        console.log(userid);
         var fbcanvas = document.getElementById('uid');
         fbcanvas.innerHTML =
-        "<p>UserId <span style='color: #ff0000'>"+userid+"</span> auf WebsiteId <span style='color: #ff0000'>"+webid+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
+        "<p>UserId <span style='color: #ff0000'>"+userid+"</span> auf WebsiteId <span style='color: #ff0000'>"+webid+"</span> mit IpAddress <span style='color: #ff0000'>"+ip+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
 
         //Change a-tag background-color after click
         $('a').on('click', function(){
@@ -98,7 +97,7 @@ app.controller('tasksController', function($scope, $http) {
   }
 
   /*
-  * Get Anzahl der UserId von WebsiteId
+  * Get Anzahl der UserId von WebsiteId,DateEntered
   */
   $scope.getSummeUserId = function (webid,datum) {
     $http.post("ajax/getSumUid.php?webid="+webid+"&datum="+datum).success(function(data){
@@ -113,12 +112,46 @@ app.controller('tasksController', function($scope, $http) {
     fbcanvas.innerHTML =
     "<p>Loading...</p>";
     $http.post("ajax/getInfoWebsite.php?webid="+webid+"&datum="+datum).success(function(data){
-        console.log(webid+"_"+datum);
-
         $scope.userids = data;
         var fbcanvas = document.getElementById('verdacht');
         fbcanvas.innerHTML =
         "<p>UserId von WebsiteId <span style='color: #ff0000'>"+webname+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
       });
   };
+
+  /*
+  * Get WebsiteName
+  */
+  $scope.getWebName = function () {
+  console.log('generate WebsiteName...');
+  $("#webdat").css("display","block");
+  var fbcanvas = document.getElementById('loadsearch');
+  fbcanvas.innerHTML =
+  "<p>Loading...</p>";
+  $http.post("ajax/getWebsiteName.php").success(function(data){
+        $("#websearch").css("display","block");
+        $("#loadsearch").css("display","none");
+        $("#arrow").css("display","block");
+        $scope.webnames = data;
+        console.log('success');
+      });
+  };
+
+  $scope.getInfoWebName = function(webname,webid){
+    console.log(webname+' '+webid);
+    $("#webdat").css("display","block");
+    var fbcanvas = document.getElementById('webdat');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    $http.post("ajax/getWebDatum.php?webid="+webid).success(function(data){
+      $("#websiteinfo").css("display","block");
+      $("#webdat").css("display","none");
+      $scope.webdatums = data;
+      console.log('success');
+      var fbcanvas = document.getElementById('web_satz');
+      fbcanvas.innerHTML =
+      "<p>WebsiteName : <span style='color: #ff0000'>"+webname+"</span></p>";
+    });
+  }
+
 });
