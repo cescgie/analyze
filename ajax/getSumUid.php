@@ -5,7 +5,7 @@ if(isset($_GET['webid']) && isset($_GET['datum'])){
 $webid = $_GET['webid'];
 $datum = $_GET['datum'];
 }
-$query="SELECT count(*) as Anzahl_UserId from(SELECT count(UserId) FROM `uid_webid` WHERE WebsiteId = $webid AND DateEntered = '$datum' GROUP BY UserId)sq";
+$query="SELECT count(*) as Anzahl_UserId from(SELECT count(UserId) FROM `uid_webid_test` WHERE WebsiteId = $webid AND DateEntered = '$datum' GROUP BY UserId)sq";
 
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
