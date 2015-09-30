@@ -154,4 +154,110 @@ app.controller('tasksController', function($scope, $http) {
     });
   }
 
+  /*
+  * Get CampaignId
+  */
+  $scope.getCampaign = function () {
+  console.log('generate CampaignId...');
+  $("#cmpgndat").css("display","block");
+  var fbcanvas = document.getElementById('loadsearchcmpgn');
+  fbcanvas.innerHTML =
+  "<p>Loading...</p>";
+  $http.post("ajax/getCampaignId.php").success(function(data){
+        $("#cmpgnsearch").css("display","block");
+        $("#loadsearchcmpgn").css("display","none");
+        $("#arrow").css("display","block");
+        $scope.campaigns = data;
+        console.log('success');
+      });
+  };
+
+  /*
+  * Recompile div to set attribute ng-click
+  * Source : http://jsfiddle.net/r2vb1ahy/
+  */
+  function compile(element){
+    var el = angular.element(element);    
+    $scope = el.scope();
+    $injector = el.injector();
+    $injector.invoke(function($compile){
+     $compile(el)($scope)
+    })     
+  }
+
+
+  $scope.getInfoCmpgnId = function(cmpgnid){
+    console.log(cmpgnid);
+    $("#cmpgndat").css("display","block");
+    var fbcanvas = document.getElementById('cmpgndat');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    $http.post("ajax/getInfoCampaignId.php?cmpgnid="+cmpgnid).success(function(data){
+      $("#cmpgninfo").css("display","block");
+      $("#cmpgndat").css("display","none");
+      $scope.cmpgninfos = data;
+      console.log('success');
+      var fbcanvas1 = document.getElementById('cmpgn_satz');
+      fbcanvas1.innerHTML =
+      "<p>CampaignId : <span style='color: #ff0000'>"+cmpgnid+"</span></p>";
+
+      //Set ng-click attribute
+      var el_state = document.getElementById("cmpgn_stateid");
+      el_state.removeAttribute("ng-click");
+      el_state.setAttribute("ng-click", "getInfoStateId("+cmpgnid+")");
+      compile(el_state);
+      var el_user = document.getElementById("cmpgn_userid");
+      el_user.removeAttribute("ng-click");
+      el_user.setAttribute("ng-click", "getInfoCmpgnUid("+cmpgnid+")");
+      compile(el_user);
+      var el_os = document.getElementById("cmpgn_osid");
+      el_os.removeAttribute("ng-click");
+      el_os.setAttribute("ng-click", "getInfoCmpgnOsId("+cmpgnid+")");
+      compile(el_os);
+      var el_browser = document.getElementById("cmpgn_browserid");
+      el_browser.removeAttribute("ng-click");
+      el_browser.setAttribute("ng-click", "getInfoCmpgnBrowserId("+cmpgnid+")");
+      compile(el_browser);
+    });
+  }
+
+  /*
+  * Get InfoState
+  */
+  $scope.getInfoStateId = function (ueberid) {
+  console.log("Info StateId von CampaignId : "+ueberid);
+  /*$("#cmpgndat").css("display","block");
+  var fbcanvas = document.getElementById('loadsearchcmpgn');
+  fbcanvas.innerHTML =
+  "<p>Loading...</p>";
+  $http.post("ajax/getCampaignId.php").success(function(data){
+        $("#cmpgnsearch").css("display","block");
+        $("#loadsearchcmpgn").css("display","none");
+        $("#arrow").css("display","block");
+        $scope.campaigns = data;
+        console.log('success');
+      });*/
+  };
+
+  /*
+  * Get InfoUserId
+  */
+  $scope.getInfoCmpgnUid = function (ueberid) {
+  console.log("Info UserId von CampaignId : "+ueberid);
+  };
+
+   /*
+  * Get InfoOsId
+  */
+  $scope.getInfoCmpgnOsId = function (ueberid) {
+  console.log("Info OsId von CampaignId : "+ueberid);
+  };
+
+   /*
+  * Get InfoBrowserId
+  */
+  $scope.getInfoCmpgnBrowserId = function (ueberid) {
+  console.log("Info BrowserId von CampaignId : "+ueberid);
+  };
+
 });
