@@ -177,12 +177,12 @@ app.controller('tasksController', function($scope, $http) {
   * Source : http://jsfiddle.net/r2vb1ahy/
   */
   function compile(element){
-    var el = angular.element(element);    
+    var el = angular.element(element);
     $scope = el.scope();
     $injector = el.injector();
     $injector.invoke(function($compile){
      $compile(el)($scope)
-    })     
+    })
   }
 
 
@@ -199,65 +199,185 @@ app.controller('tasksController', function($scope, $http) {
       console.log('success');
       var fbcanvas1 = document.getElementById('cmpgn_satz');
       fbcanvas1.innerHTML =
-      "<p>CampaignId : <span style='color: #ff0000'>"+cmpgnid+"</span></p>";
+      "<p>CampaignId : <span style='color: #ff0000;font-size:30px;'>"+cmpgnid+"</span></p>";
+
+      var fbcanvas3 = document.getElementById('cmpgn_userid');
+      fbcanvas3.innerHTML =
+      "<p><a id='cmpgn_userid_a'>UserId</a></p>";
+
+      var fbcanvas2 = document.getElementById('cmpgn_stateid');
+      fbcanvas2.innerHTML =
+      "<p><a id='cmpgn_stateid_a'>StateId</a></p>";
+
+      var fbcanvas4 = document.getElementById('cmpgn_osid');
+      fbcanvas4.innerHTML =
+      "<p><a id='cmpgn_osid_a'>OsId</a></p>";
+
+      var fbcanvas5 = document.getElementById('cmpgn_browserid');
+      fbcanvas5.innerHTML =
+      "<p><a id='cmpgn_browserid_a'>BrowserId</a></p>";
 
       //Set ng-click attribute
-      var el_state = document.getElementById("cmpgn_stateid");
+      var el_state = document.getElementById("cmpgn_stateid_a");
+      el_state.getAttribute("ng-click");
       el_state.removeAttribute("ng-click");
       el_state.setAttribute("ng-click", "getInfoStateId("+cmpgnid+")");
       compile(el_state);
-      var el_user = document.getElementById("cmpgn_userid");
+      console.log(el_state);
+
+      var el_user = document.getElementById("cmpgn_userid_a");
+      el_user.getAttribute("ng-click");
       el_user.removeAttribute("ng-click");
       el_user.setAttribute("ng-click", "getInfoCmpgnUid("+cmpgnid+")");
       compile(el_user);
-      var el_os = document.getElementById("cmpgn_osid");
+      console.log(el_user);
+
+      var el_os = document.getElementById("cmpgn_osid_a");
+      el_os.getAttribute("ng-click");
       el_os.removeAttribute("ng-click");
       el_os.setAttribute("ng-click", "getInfoCmpgnOsId("+cmpgnid+")");
       compile(el_os);
-      var el_browser = document.getElementById("cmpgn_browserid");
+      console.log(el_os);
+
+      var el_browser = document.getElementById("cmpgn_browserid_a");
+      el_browser.getAttribute("ng-click");
       el_browser.removeAttribute("ng-click");
       el_browser.setAttribute("ng-click", "getInfoCmpgnBrowserId("+cmpgnid+")");
       compile(el_browser);
+      console.log(el_browser);
+
     });
   }
 
   /*
-  * Get InfoState
+  * Get InfoUserId
   */
-  $scope.getInfoStateId = function (ueberid) {
-  console.log("Info StateId von CampaignId : "+ueberid);
-  /*$("#cmpgndat").css("display","block");
-  var fbcanvas = document.getElementById('loadsearchcmpgn');
-  fbcanvas.innerHTML =
-  "<p>Loading...</p>";
-  $http.post("ajax/getCampaignId.php").success(function(data){
-        $("#cmpgnsearch").css("display","block");
-        $("#loadsearchcmpgn").css("display","none");
-        $("#arrow").css("display","block");
-        $scope.campaigns = data;
-        console.log('success');
-      });*/
+  $scope.getInfoCmpgnUid = function (cmpgnid) {
+    console.log("Info UserId von CampaignId : "+cmpgnid);
+    $("#ueberdat").css("display","block");
+    var fbcanvas = document.getElementById('ueberdat');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    var fbcanvas2 = document.getElementById('uebertitle');
+    fbcanvas2.innerHTML =
+    "<span style='color: #ff0000'>UserId</span>";
+
+    $http.post("ajax/getCampaignUserId.php?cmpgnid="+cmpgnid).success(function(data){
+          //$("#ueberdat").css("display","none");
+          $("#cmpginfouid_tab").hide();
+          $("#cmpgnstateid_tab").hide();
+          $("#cmpgnosid_tab").hide();
+          $("#cmpgnbrowserid_tab").hide();
+          $("#ueberdat").css("display","none");
+
+          //$("#arrow").css("display","block");
+          $("#cmpgnuserid_tab").show();
+          $scope.campaignuserids = data;
+          console.log('success');
+
+      });
+
   };
 
   /*
-  * Get InfoUserId
+  * Get InfoState
   */
-  $scope.getInfoCmpgnUid = function (ueberid) {
-  console.log("Info UserId von CampaignId : "+ueberid);
+  $scope.getInfoStateId = function (cmpgnid) {
+
+    console.log("Info StateId von CampaignId : "+cmpgnid);
+    $("#ueberdat").css("display","block");
+    var fbcanvas = document.getElementById('ueberdat');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    var fbcanvas2 = document.getElementById('uebertitle');
+    fbcanvas2.innerHTML =
+    "<span style='color: #ff0000'>StateId</span>";
+
+      $http.post("ajax/getCampaignStateId.php?cmpgnid="+cmpgnid).success(function(data){
+          //$("#cmpgnstateid_tab").css("display","block");
+          $("#cmpgnuserid_tab").hide();
+          $("#cmpgnosid_tab").hide();
+          $("#cmpgnbrowserid_tab").hide();
+          $("#cmpgnstateid_tab").show();
+          $("#cmpginfouid_tab").hide();
+
+          $("#ueberdat").css("display","none");
+          $scope.campaignstateids = data;
+          console.log('success');
+        });
   };
 
    /*
   * Get InfoOsId
   */
-  $scope.getInfoCmpgnOsId = function (ueberid) {
-  console.log("Info OsId von CampaignId : "+ueberid);
+  $scope.getInfoCmpgnOsId = function (cmpgnid) {
+  $("#cmpgnuserid_tab").css("display","none");
+  $("#cmpgnstateid_tab").css("display","none");
+  $("#cmpgnbrowserid_tab").css("display","none");
+
+  console.log("Info OsId von CampaignId : "+cmpgnid);
+  $("#ueberdat").css("display","block");
+  var fbcanvas = document.getElementById('ueberdat');
+  fbcanvas.innerHTML =
+  "<p>Loading...</p>";
+  var fbcanvas2 = document.getElementById('uebertitle');
+  fbcanvas2.innerHTML =
+  "<span style='color: #ff0000'>OsId</span>";
+
+  $http.post("ajax/getCampaignOsId.php?cmpgnid="+cmpgnid).success(function(data){
+        //$("#cmpgnosid_tab").css("display","block");
+        $("#cmpgnuserid_tab").hide();
+        $("#cmpgnosid_tab").show();
+        $("#cmpgnbrowserid_tab").hide();
+        $("#cmpgnstateid_tab").hide();
+        $("#cmpginfouid_tab").hide();
+
+        $("#ueberdat").css("display","none");
+        $scope.campaignosids = data;
+        console.log('success');
+      });
   };
 
    /*
   * Get InfoBrowserId
   */
-  $scope.getInfoCmpgnBrowserId = function (ueberid) {
-  console.log("Info BrowserId von CampaignId : "+ueberid);
+  $scope.getInfoCmpgnBrowserId = function (cmpgnid) {
+
+    console.log("Info BrowserId von CampaignId : "+cmpgnid);
+    $("#ueberdat").css("display","block");
+    var fbcanvas = document.getElementById('ueberdat');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    var fbcanvas2 = document.getElementById('uebertitle');
+    fbcanvas2.innerHTML =
+    "<span style='color: #ff0000'>BrowserId</span>";
+
+    $http.post("ajax/getCampaignBrowserId.php?cmpgnid="+cmpgnid).success(function(data){
+          //$("#cmpgnbrowserid_tab").css("display","block");
+          $("#cmpgnuserid_tab").hide();
+          $("#cmpgnosid_tab").hide();
+          $("#cmpgnbrowserid_tab").show();
+          $("#cmpgnstateid_tab").hide();
+          $("#cmpginfouid_tab").hide();
+
+          $("#ueberdat").css("display","none");
+          $scope.campaignbrowserids = data;
+          console.log('success');
+      });
   };
 
+  /*
+  * Get Info Campaign von UserId
+  */
+  $scope.getCampaignFromUid = function (userid,cmpgnid) {
+    $http.post("ajax/getCampaignInfoUserId.php?userid="+userid+"&cmpgnid="+cmpgnid).success(function(data){
+        $("#cmpgnuserid_tab").hide();
+        $("#cmpgnosid_tab").hide();
+        $("#cmpgnbrowserid_tab").hide();
+        $("#cmpgnstateid_tab").hide();
+        $("#cmpginfouid_tab").show();
+        console.log("Campaign Info UserId success");
+        $scope.cmpgninfouids = data;
+      });
+  };
 });
