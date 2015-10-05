@@ -578,7 +578,6 @@ app.controller('tasksController', function($scope, $http) {
       console.log("success");
       $scope.uidcmpgns = data;
       $("#useridcmpgnid_div_s4").css("display","block");
-      console.log(el_state);
     });
   }
 
