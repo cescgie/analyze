@@ -460,6 +460,10 @@ app.controller('tasksController', function($scope, $http) {
     var datum = $("#date_input").val();
     var userid = $("#uid_input").val();
     console.log(userid +' - '+ datum);
+    var fbcanvas1 = document.getElementById('uber_title');
+    fbcanvas1.innerHTML =
+    "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p>";
+
     $("#userid_div_s4").css("display","none");
     /*$http.post("ajax/getInfoUserId.php?datum="+datum+"&userid="+userid).success(function(data){
       $("#userid_div_s4").css("display","block");
@@ -475,7 +479,7 @@ app.controller('tasksController', function($scope, $http) {
       fbcanvas3.innerHTML =
       "<p><a id='cmpgn_a_s4'>CampaignId</a></p>";
 
-      var fbcanvas2 = document.getElementById('stateid_s4');
+      /*var fbcanvas2 = document.getElementById('stateid_s4');
       fbcanvas2.innerHTML =
       "<p><a id='stateid_a_s4'>StateId</a></p>";
 
@@ -486,6 +490,7 @@ app.controller('tasksController', function($scope, $http) {
       var fbcanvas5 = document.getElementById('browserid_s4');
       fbcanvas5.innerHTML =
       "<p><a id='browserid_a_s4'>BrowserId</a></p>";
+      */
 
       //Set ng-click attribute
       var el_Website = document.getElementById("webid_a_s4");
@@ -502,6 +507,7 @@ app.controller('tasksController', function($scope, $http) {
       compile(el_cmpgn);
       console.log(el_cmpgn);
 
+      /*
       var el_state = document.getElementById("stateid_a_s4");
       el_state.getAttribute("ng-click");
       el_state.removeAttribute("ng-click");
@@ -522,21 +528,58 @@ app.controller('tasksController', function($scope, $http) {
       el_browser.setAttribute("ng-click", "getInfoUidBrowserId('"+userid+"','"+datum+"')");
       compile(el_browser);
       console.log(el_browser);
+      */
     }
   }
 
   /*
   * UserId nach WebsiteId
   */
-  $scope.getInfoUidWebId = function(datum,userid){
+  $scope.getInfoUidWebId = function(userid,datum){
     console.log("Web "+datum+"-"+userid);
+    $("#useridwebid_div_s4").css("display","none");
+    $("#useridcmpgnid_div_s4").css("display","none");
+    $http.post("ajax/getUserIdWebId.php?datum="+datum+"&userid="+userid).success(function(data){
+      console.log("success");
+      $scope.infouidwebids = data;
+
+      //var datum = $scope.infouidwebids[0].DateEntered;
+      var webid = $scope.infouidwebids[0].WebsiteId;
+      var webname = $scope.infouidwebids[0].WebsiteName;
+      console.log($scope.infouidwebids[0].DateEntered);
+      console.log(userid);
+      console.log(webid);
+      console.log(webname);
+      console.log(datum);
+
+      $("#useridwebid_div_s4").css("display","block");
+
+      var fbcanvas1 = document.getElementById('uiwebname');
+      fbcanvas1.innerHTML =
+      "<p><a id='webidy_a_s4'>Check</a></p>";
+
+      //Set ng-click attribute
+      var el_webname = document.getElementById("webidy_a_s4");
+      el_webname.getAttribute("ng-click");
+      el_webname.removeAttribute("ng-click");
+      el_webname.setAttribute("ng-click", "getInfoFromWebName('"+webid+"','"+userid+"','"+datum+"')");
+      compile(el_webname);
+    });
   }
 
   /*
   * UserId nach CampaignId
   */
-  $scope.getInfoUidCmpgn = function(datum,userid){
+  $scope.getInfoUidCmpgn = function(userid,datum){
     console.log("Cmpgn "+datum+"-"+userid);
+    $("#useridwebid_div_s4").css("display","none");
+    $("#useridcmpgnid_div_s4").css("display","none");
+    $http.post("ajax/getUserIdCampaignId.php?datum="+datum+"&userid="+userid).success(function(data){
+      console.log("success");
+      $scope.uidcmpgns = data;
+      $("#useridcmpgnid_div_s4").css("display","block");
+      console.log(el_state);
+    });
   }
 
   /*
@@ -558,5 +601,12 @@ app.controller('tasksController', function($scope, $http) {
   */
   $scope.getInfoUidBrowserId = function(datum,userid){
     console.log("Browser "+datum+"-"+userid);
+    $http.post("ajax/getInfoUserIdBrowserId.php?datum="+datum+"&userid="+userid).success(function(data){
+      console.log("success");
+    });
+  }
+
+  $scope.getInfoFromWebName = function(webid,userid,datum){
+    console.log(webid+"_"+userid+"_"+datum);
   }
 });

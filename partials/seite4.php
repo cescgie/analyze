@@ -26,7 +26,8 @@
       <input type="submit" ngClick="Submit">
     </form>
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-sm-3">
+        <p id="uber_title"></p>
         <div id = "useridinfo_s4" style="display:block;">
           <table border="0" class="table table-striped table-hover">
           <tr>
@@ -38,7 +39,7 @@
           <tr>
             <td><p id="cmpgnid_s4">CampaignId</p></td>
           </tr>
-          <tr>
+          <!--<tr>
             <td><p id="stateid_s4">StateId</p></td>
           </tr>
           <tr>
@@ -46,13 +47,41 @@
           </tr>
           <tr>
             <td ><p id="browserid_s4">BrowserId</p></td>
-          </tr>
+          </tr>-->
           </table>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-3">
+        <div id="useridwebid_div_s4" style="display:none">
+
+          <table border="0" class="table table-striped table-hover">
+          <tr>
+            <th style="text-align:left;">WebsiteName</th>
+            <th style="text-align:right;">Impressions</th>
+          </tr>
+          <tr ng-repeat="infouidwebid in infouidwebids track by $index">
+              <td style="text-align:left;"><p>{{infouidwebid.WebsiteName}}</p></td>
+              <td style="text-align:right;"><p>{{infouidwebid.Sum}}</p></td>
+            </tr>
+            <tr>
+              <td ><a id="uiwebname">Check</a></td>
+            </tr>
+          </table>
+        </div>
+        <div id="useridcmpgnid_div_s4" style="display:block">
+          <table border="0" class="table table-striped table-hover">
+          <tr>
+            <th style="text-align:left;">CampaignId</th>
+            <th style="text-align:right;">Impressions</th>
+          </tr>
+          <tr ng-repeat="uidcmpgn in uidcmpgns track by $index">
+              <td style="text-align:left;"><p>{{uidcmpgn.CampaignId}}</p></td>
+              <td style="text-align:right;"><p>{{uidcmpgn.Sum}}</p></td>
+            </tr>
+          </table>
+        </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
       </div>
     </div>
     <table width="100%">
