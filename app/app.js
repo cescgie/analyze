@@ -199,7 +199,7 @@ app.controller('tasksController', function($scope, $http) {
       console.log('success');
       var fbcanvas1 = document.getElementById('cmpgn_satz');
       fbcanvas1.innerHTML =
-      "<p>CampaignId : <span style='color: #ff0000;font-size:30px;'>"+cmpgnid+"</span></p>";
+      "<p>CampaignId : <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
 
       var fbcanvas3 = document.getElementById('cmpgn_userid');
       fbcanvas3.innerHTML =
@@ -261,6 +261,9 @@ app.controller('tasksController', function($scope, $http) {
     var fbcanvas2 = document.getElementById('uebertitle');
     fbcanvas2.innerHTML =
     "<span style='color: #ff0000'>UserId</span>";
+    var fbcanvas3 = document.getElementById('ueber_satz');
+      fbcanvas3.innerHTML =
+      "<p>Liste der <span style='color: #ff0000;'>UserId</span> von CampaignId <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
 
     $http.post("ajax/getCampaignUserId.php?cmpgnid="+cmpgnid).success(function(data){
           //$("#ueberdat").css("display","none");
@@ -292,6 +295,9 @@ app.controller('tasksController', function($scope, $http) {
     var fbcanvas2 = document.getElementById('uebertitle');
     fbcanvas2.innerHTML =
     "<span style='color: #ff0000'>StateId</span>";
+    var fbcanvas3 = document.getElementById('ueber_satz');
+    fbcanvas3.innerHTML =
+    "<p>Liste der <span style='color: #ff0000;'>StateId</span> von CampaignId <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
 
       $http.post("ajax/getCampaignStateId.php?cmpgnid="+cmpgnid).success(function(data){
           //$("#cmpgnstateid_tab").css("display","block");
@@ -323,6 +329,9 @@ app.controller('tasksController', function($scope, $http) {
   var fbcanvas2 = document.getElementById('uebertitle');
   fbcanvas2.innerHTML =
   "<span style='color: #ff0000'>OsId</span>";
+  var fbcanvas3 = document.getElementById('ueber_satz');
+  fbcanvas3.innerHTML =
+  "<p>Liste der <span style='color: #ff0000;'>OsId(Betriebsysteme)</span> von CampaignId <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
 
   $http.post("ajax/getCampaignOsId.php?cmpgnid="+cmpgnid).success(function(data){
         //$("#cmpgnosid_tab").css("display","block");
@@ -338,7 +347,7 @@ app.controller('tasksController', function($scope, $http) {
       });
   };
 
-   /*
+  /*
   * Get InfoBrowserId
   */
   $scope.getInfoCmpgnBrowserId = function (cmpgnid) {
@@ -351,6 +360,9 @@ app.controller('tasksController', function($scope, $http) {
     var fbcanvas2 = document.getElementById('uebertitle');
     fbcanvas2.innerHTML =
     "<span style='color: #ff0000'>BrowserId</span>";
+    var fbcanvas3 = document.getElementById('ueber_satz');
+    fbcanvas3.innerHTML =
+    "<p>Liste der <span style='color: #ff0000;'>BrowserId</span> von CampaignId <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
 
     $http.post("ajax/getCampaignBrowserId.php?cmpgnid="+cmpgnid).success(function(data){
           //$("#cmpgnbrowserid_tab").css("display","block");
@@ -380,4 +392,171 @@ app.controller('tasksController', function($scope, $http) {
         $scope.cmpgninfouids = data;
       });
   };
+
+  /*
+  * Get Info Campaign von UserId
+  */
+  $scope.getInfoFromUid = function (userid,datum){
+    //console.log(userid+'-'+datum);
+    $http.post("ajax/getInfoUserId.php?datum="+datum+"&userid="+userid).success(function(data){
+        $("#seite1").hide();
+        $("#seite2").hide();
+        $("#seite3").hide();
+        $("#seite4").show();
+        $("#seite3_li").removeClass("active");
+      	$("#seite2_li").removeClass("active");
+      	$("#seite1_li").removeClass("active");
+      	$("#seite4_li").addClass("active");
+        console.log("Info UserId success");
+        $scope.infouids = data;
+      });
+  };
+
+  /*
+  * Get UserId from Seite3,send it to Seite4, and automaticaly change to Seite4
+  * Seite4
+  */
+  $scope.sendIdToSeite4 = function(userid){
+    $("#seite1").hide();
+    $("#seite2").hide();
+    $("#seite3").hide();
+    $("#seite4").show();
+    $("#seite3_li").removeClass("active");
+    $("#seite2_li").removeClass("active");
+    $("#seite1_li").removeClass("active");
+    $("#seite4_li").addClass("active");
+
+    $("#uid_input_show").hide();
+    var fbcanvas1 = document.getElementById('uid_input_hid');
+    fbcanvas1.innerHTML =
+    '<input id="uid_input" ng-model="uid_input" name="uid_input" type="text" value='+userid+'>';
+    console.log("setUidInput :"+userid);
+  };
+
+  /*
+  * Select Datum from Selection
+  * Seite4
+  */
+  $scope.setDateInput=function(datum){
+    $("#date_input_show").hide();
+    var fbcanvas1 = document.getElementById('date_input_hid');
+    fbcanvas1.innerHTML =
+    '<input id="date_input" ng-model="date_input" name="date_input" type="text" value='+datum.DateEntered+'>';
+    console.log("setDateInput :"+datum.DateEntered);
+
+  }
+
+  var formData = {
+    uid_input: "default",
+    date_input: "default"
+  };
+
+  /*
+  * Seite4
+  * Send input value (UserId & Datum)
+  */
+  $scope.formSubmit=function(){
+    console.log("formSubmit");
+    var datum = $("#date_input").val();
+    var userid = $("#uid_input").val();
+    console.log(userid +' - '+ datum);
+    $("#userid_div_s4").css("display","none");
+    /*$http.post("ajax/getInfoUserId.php?datum="+datum+"&userid="+userid).success(function(data){
+      $("#userid_div_s4").css("display","block");
+      $scope.infodateuids = data;
+    });*/
+    $("#useridinfo_s4").css("display","block");
+    if(datum && userid){
+      var fbcanvas1 = document.getElementById('webid_s4');
+      fbcanvas1.innerHTML =
+      "<p><a id='webid_a_s4'>WebsiteId</a></p>";
+
+      var fbcanvas3 = document.getElementById('cmpgnid_s4');
+      fbcanvas3.innerHTML =
+      "<p><a id='cmpgn_a_s4'>CampaignId</a></p>";
+
+      var fbcanvas2 = document.getElementById('stateid_s4');
+      fbcanvas2.innerHTML =
+      "<p><a id='stateid_a_s4'>StateId</a></p>";
+
+      var fbcanvas4 = document.getElementById('osid_s4');
+      fbcanvas4.innerHTML =
+      "<p><a id='osid_a_s4'>OsId</a></p>";
+
+      var fbcanvas5 = document.getElementById('browserid_s4');
+      fbcanvas5.innerHTML =
+      "<p><a id='browserid_a_s4'>BrowserId</a></p>";
+
+      //Set ng-click attribute
+      var el_Website = document.getElementById("webid_a_s4");
+      el_Website.getAttribute("ng-click");
+      el_Website.removeAttribute("ng-click");
+      el_Website.setAttribute("ng-click", "getInfoUidWebId('"+userid+"','"+datum+"')");
+      compile(el_Website);
+      console.log(el_Website);
+
+      var el_cmpgn = document.getElementById("cmpgn_a_s4");
+      el_cmpgn.getAttribute("ng-click");
+      el_cmpgn.removeAttribute("ng-click");
+      el_cmpgn.setAttribute("ng-click", "getInfoUidCmpgn('"+userid+"','"+datum+"')");
+      compile(el_cmpgn);
+      console.log(el_cmpgn);
+
+      var el_state = document.getElementById("stateid_a_s4");
+      el_state.getAttribute("ng-click");
+      el_state.removeAttribute("ng-click");
+      el_state.setAttribute("ng-click", "getInfoUidStateId('"+userid+"','"+datum+"')");
+      compile(el_state);
+      console.log(el_state);
+
+      var el_os = document.getElementById("osid_a_s4");
+      el_os.getAttribute("ng-click");
+      el_os.removeAttribute("ng-click");
+      el_os.setAttribute("ng-click", "getInfoUidOsId('"+userid+"','"+datum+"')");
+      compile(el_os);
+      console.log(el_os);
+
+      var el_browser = document.getElementById("browserid_a_s4");
+      el_browser.getAttribute("ng-click");
+      el_browser.removeAttribute("ng-click");
+      el_browser.setAttribute("ng-click", "getInfoUidBrowserId('"+userid+"','"+datum+"')");
+      compile(el_browser);
+      console.log(el_browser);
+    }
+  }
+
+  /*
+  * UserId nach WebsiteId
+  */
+  $scope.getInfoUidWebId = function(datum,userid){
+    console.log("Web "+datum+"-"+userid);
+  }
+
+  /*
+  * UserId nach CampaignId
+  */
+  $scope.getInfoUidCmpgn = function(datum,userid){
+    console.log("Cmpgn "+datum+"-"+userid);
+  }
+
+  /*
+  * UserId nach StateId
+  */
+  $scope.getInfoUidStateId = function(datum,userid){
+    console.log("State "+datum+"-"+userid);
+  }
+
+  /*
+  * UserId nach OsId
+  */
+  $scope.getInfoUidOsId = function(datum,userid){
+    console.log("Os "+datum+"-"+userid);
+  }
+
+  /*
+  * UserId nach BrowserId
+  */
+  $scope.getInfoUidBrowserId = function(datum,userid){
+    console.log("Browser "+datum+"-"+userid);
+  }
 });
