@@ -2,6 +2,8 @@
 var app = angular.module('myApp', []);
 
 app.controller('tasksController', function($scope, $http) {
+  //TAB1
+
   //getTask(); // Load all available tasks
   getDatum();
   //getWebName();
@@ -43,10 +45,10 @@ app.controller('tasksController', function($scope, $http) {
         "<p>UserId <span style='color: #ff0000'>"+userid+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
 
         //Change a-tag background-color after click
-        $('a').on('click', function(){
+        /*$('a').on('click', function(){
           $('a').css("background-color","");
           $(this).css("background-color","yellow");
-        });
+        });*/
       });
   };
 
@@ -64,10 +66,10 @@ app.controller('tasksController', function($scope, $http) {
         element.innerHTML = "<p>Info von IpAddress <span style='color: #ff0000'>"+ip+"</span></p>";
 
         //Change a-tag background-color after click
-        $('a').on('click', function(){
+        /*$('a').on('click', function(){
           $('a').css("background-color","");
           $(this).css("background-color","yellow");
-        });
+        });*/
       });
   };
 
@@ -85,10 +87,10 @@ app.controller('tasksController', function($scope, $http) {
         "<p>UserId <span style='color: #ff0000'>"+userid+"</span> auf WebsiteId <span style='color: #ff0000'>"+webid+"</span> mit IpAddress <span style='color: #ff0000'>"+ip+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
 
         //Change a-tag background-color after click
-        $('a').on('click', function(){
+        /*$('a').on('click', function(){
           $('a').css("background-color","");
           $(this).css("background-color","yellow");
-        });
+        });*/
       });
   };
 
@@ -118,7 +120,9 @@ app.controller('tasksController', function($scope, $http) {
         "<p>UserId von WebsiteId <span style='color: #ff0000'>"+webname+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
       });
   };
+  //END OF TAB1
 
+  //TAB2
   /*
   * Get WebsiteName
   */
@@ -140,19 +144,47 @@ app.controller('tasksController', function($scope, $http) {
   $scope.getInfoWebName = function(webname,webid){
     console.log(webname+' '+webid);
     $("#webdat").css("display","block");
+    $("#websiteinfo").css("display","none");
+    $("#webdatum_div").css("display","none");
+    $("#webdatum_div_title").css("display","none");
     var fbcanvas = document.getElementById('webdat');
     fbcanvas.innerHTML =
     "<p>Loading...</p>";
     $http.post("ajax/getWebDatum.php?webid="+webid).success(function(data){
       $("#websiteinfo").css("display","block");
-      $("#webdat").css("display","none");
+      //$("#webdat").css("display","block");
       $scope.webdatums = data;
       console.log('success');
-      var fbcanvas = document.getElementById('web_satz');
+      var fbcanvas = document.getElementById('webdat');
       fbcanvas.innerHTML =
       "<p>WebsiteName : <span style='color: #ff0000'>"+webname+"</span></p>";
     });
   }
+
+
+  /*
+  * Get info from WebsiteId nach Datum
+  */
+  $scope.getInfoWebDat = function(datum,webid){
+    $("#webdatum_div").css("display","none");
+    $("#webdatum_div_title").css("display","block");
+    var fbcanvas = document.getElementById('webdatum_div_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    console.log(datum+"_"+webid);
+    $http.post("ajax/getInfoWebIdDatumS2.php?webid="+webid+"&datum="+datum).success(function(data){
+      console.log("success");
+      $scope.webiddat2s = data;
+      console.log($scope.webiddat2s);
+      $("#webdatum_div").css("display","block");
+      var fbcanvas = document.getElementById('webdatum_div_title');
+      fbcanvas.innerHTML =
+      "<p>Liste der UserId von WebsiteId : <span style='color: #ff0000'>"+webid+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
+    });
+  }
+  //END OF TAB2
+
+  //TAB3
 
   /*
   * Get CampaignId
@@ -185,14 +217,14 @@ app.controller('tasksController', function($scope, $http) {
     })
   }
 
-
-  $scope.getInfoCmpgnId = function(cmpgnid){
+  $scope.getInfoCmpgnIdS3 = function(cmpgnid){
     console.log(cmpgnid);
     $("#cmpgndat").css("display","block");
+    $("#cmpgninfo").css("display","none");
     var fbcanvas = document.getElementById('cmpgndat');
     fbcanvas.innerHTML =
     "<p>Loading...</p>";
-    $http.post("ajax/getInfoCampaignId.php?cmpgnid="+cmpgnid).success(function(data){
+    $http.post("ajax/getCampaignDatum.php?cmpgnid="+cmpgnid).success(function(data){
       $("#cmpgninfo").css("display","block");
       $("#cmpgndat").css("display","none");
       $scope.cmpgninfos = data;
@@ -200,51 +232,22 @@ app.controller('tasksController', function($scope, $http) {
       var fbcanvas1 = document.getElementById('cmpgn_satz');
       fbcanvas1.innerHTML =
       "<p>CampaignId : <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
-
-      var fbcanvas3 = document.getElementById('cmpgn_userid');
-      fbcanvas3.innerHTML =
-      "<p><a id='cmpgn_userid_a'>UserId</a></p>";
-
-      var fbcanvas2 = document.getElementById('cmpgn_stateid');
-      fbcanvas2.innerHTML =
-      "<p><a id='cmpgn_stateid_a'>StateId</a></p>";
-
-      var fbcanvas4 = document.getElementById('cmpgn_osid');
-      fbcanvas4.innerHTML =
-      "<p><a id='cmpgn_osid_a'>OsId</a></p>";
-
-      var fbcanvas5 = document.getElementById('cmpgn_browserid');
-      fbcanvas5.innerHTML =
-      "<p><a id='cmpgn_browserid_a'>BrowserId</a></p>";
-
-      //Set ng-click attribute
-      var el_state = document.getElementById("cmpgn_stateid_a");
-      el_state.getAttribute("ng-click");
-      el_state.removeAttribute("ng-click");
-      el_state.setAttribute("ng-click", "getInfoStateId("+cmpgnid+")");
-      compile(el_state);
-      console.log(el_state);
-
-      var el_user = document.getElementById("cmpgn_userid_a");
-      el_user.getAttribute("ng-click");
-      el_user.removeAttribute("ng-click");
-      el_user.setAttribute("ng-click", "getInfoCmpgnUid("+cmpgnid+")");
-      compile(el_user);
-      console.log(el_user);
-
-      var el_os = document.getElementById("cmpgn_osid_a");
-      el_os.getAttribute("ng-click");
-      el_os.removeAttribute("ng-click");
-      el_os.setAttribute("ng-click", "getInfoCmpgnOsId("+cmpgnid+")");
-      compile(el_os);
-      console.log(el_os);
-
-      var el_browser = document.getElementById("cmpgn_browserid_a");
-      el_browser.getAttribute("ng-click");
-      el_browser.removeAttribute("ng-click");
-      el_browser.setAttribute("ng-click", "getInfoCmpgnBrowserId("+cmpgnid+")");
-      compile(el_browser);
-      console.log(el_browser);
+    });
+  }
+  $scope.getInfoCmpgnDat=function (datum,cmpgnid){
+    $("#cmpgndatum_div").css("display","none");
+    var fbcanvas = document.getElementById('cmpgndatum_div_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    console.log(datum+"_"+cmpgnid);
+    $http.post("ajax/getInfoCampaignDatumS3.php?cmpgnid="+cmpgnid+"&datum="+datum).success(function(data){
+      console.log("success");
+      $scope.cmpgniddats = data;
+      console.log($scope.cmpgniddats);
+      $("#cmpgndatum_div").css("display","block");
+      var fbcanvas = document.getElementById('cmpgndatum_div_title');
+      fbcanvas.innerHTML =
+      "<p>Liste der UserId von CampaignId : <span style='color: #ff0000'>"+cmpgnid+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
 
     });
   }
@@ -253,6 +256,10 @@ app.controller('tasksController', function($scope, $http) {
   * Get InfoUserId
   */
   $scope.getInfoCmpgnUid = function (cmpgnid) {
+    $("#cmpgnbrowserid_tab").css("display","none");
+    $("#cmpgnosid_tab").css("display","none");
+    $("#cmpgnstateid_tab").css("display","none");
+
     console.log("Info UserId von CampaignId : "+cmpgnid);
     $("#ueberdat").css("display","block");
     var fbcanvas = document.getElementById('ueberdat');
@@ -286,18 +293,22 @@ app.controller('tasksController', function($scope, $http) {
   * Get InfoState
   */
   $scope.getInfoStateId = function (cmpgnid) {
+    $("#cmpgnuserid_tab").css("display","none");
+    $("#cmpgnosid_tab").css("display","none");
+    $("#cmpgnbrowserid_tab").css("display","none");
 
-    console.log("Info StateId von CampaignId : "+cmpgnid);
+    console.log("Info CityId von CampaignId : "+cmpgnid);
     $("#ueberdat").css("display","block");
+    //$("#ueberinfo").hide();
     var fbcanvas = document.getElementById('ueberdat');
     fbcanvas.innerHTML =
     "<p>Loading...</p>";
     var fbcanvas2 = document.getElementById('uebertitle');
     fbcanvas2.innerHTML =
-    "<span style='color: #ff0000'>StateId</span>";
+    "<span style='color: #ff0000'>CityId</span>";
     var fbcanvas3 = document.getElementById('ueber_satz');
     fbcanvas3.innerHTML =
-    "<p>Liste der <span style='color: #ff0000;'>StateId</span> von CampaignId <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
+    "<p>Liste der <span style='color: #ff0000;'>CityId</span> von CampaignId <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
 
       $http.post("ajax/getCampaignStateId.php?cmpgnid="+cmpgnid).success(function(data){
           //$("#cmpgnstateid_tab").css("display","block");
@@ -309,6 +320,7 @@ app.controller('tasksController', function($scope, $http) {
 
           $("#ueberdat").css("display","none");
           $scope.campaignstateids = data;
+          //$("#ueberinfo").show();
           console.log('success');
         });
   };
@@ -351,6 +363,9 @@ app.controller('tasksController', function($scope, $http) {
   * Get InfoBrowserId
   */
   $scope.getInfoCmpgnBrowserId = function (cmpgnid) {
+    $("#cmpgnuserid_tab").css("display","none");
+    $("#cmpgnosid_tab").css("display","none");
+    $("#cmpgnstateid_tab").css("display","none");
 
     console.log("Info BrowserId von CampaignId : "+cmpgnid);
     $("#ueberdat").css("display","block");
@@ -416,7 +431,7 @@ app.controller('tasksController', function($scope, $http) {
   * Get UserId from Seite3,send it to Seite4, and automaticaly change to Seite4
   * Seite4
   */
-  $scope.sendIdToSeite4 = function(userid){
+  $scope.sendIdToSeite4 = function(userid,datum){
     $("#seite1").hide();
     $("#seite2").hide();
     $("#seite3").hide();
@@ -427,18 +442,42 @@ app.controller('tasksController', function($scope, $http) {
     $("#seite4_li").addClass("active");
 
     $("#uid_input_show").hide();
+    $("#date_input_show").hide();
+    $("#useridinfo_s4").css("display","none");
+    $("#useridwebid_div_s4").css("display","none");
+    $("#useridcmpgnid_div_s4").css("display","none");
+    $("#webinfoinfo_div_s4").css("display","none");
+    $("#cmpgninfoinfo_div_s4").css("display","none");
+    $("#uber_content_title").css("display","none");
+
     var fbcanvas1 = document.getElementById('uid_input_hid');
     fbcanvas1.innerHTML =
     '<input id="uid_input" ng-model="uid_input" name="uid_input" type="text" value='+userid+'>';
+
+    var fbcanvas2 = document.getElementById('date_input_hid');
+    fbcanvas2.innerHTML =
+    '<input id="date_input" ng-model="date_input" name="date_input" type="text" value='+datum+'>';
     console.log("setUidInput :"+userid);
   };
+  //END OF TAB3
 
+  //TAB4
   /*
   * Select Datum from Selection
   * Seite4
   */
   $scope.setDateInput=function(datum){
     $("#date_input_show").hide();
+    //$("#uber_all_col2").css("display","none");
+
+    //Hidden all table wenn date changed
+    $("#useridinfo_s4").css("display","none");
+    $("#useridwebid_div_s4").css("display","none");
+    $("#useridcmpgnid_div_s4").css("display","none");
+    $("#webinfoinfo_div_s4").css("display","none");
+    $("#cmpgninfoinfo_div_s4").css("display","none");
+    $("#uber_content_title").css("display","none");
+
     var fbcanvas1 = document.getElementById('date_input_hid');
     fbcanvas1.innerHTML =
     '<input id="date_input" ng-model="date_input" name="date_input" type="text" value='+datum.DateEntered+'>';
@@ -457,12 +496,29 @@ app.controller('tasksController', function($scope, $http) {
   */
   $scope.formSubmit=function(){
     console.log("formSubmit");
+
+    //Show ueberblick table wenn userid & date submit
+    $("#useridinfo_s4").css("display","block");
+    $("#useridwebid_div_s4").css("display","none");
+    $("#useridcmpgnid_div_s4").css("display","none");
+    $("#webinfoinfo_div_s4").css("display","none");
+    $("#cmpgninfoinfo_div_s4").css("display","none");
+    $("#uber_content_title").css("display","none");
+
     var datum = $("#date_input").val();
     var userid = $("#uid_input").val();
     console.log(userid +' - '+ datum);
-    var fbcanvas1 = document.getElementById('uber_title');
-    fbcanvas1.innerHTML =
-    "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p>";
+    $('#uber_title').css("display","block");
+    var fbcanvas = document.getElementById('uber_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    /*setTimeout(function(){
+      //$('#uber_title').css("display","block");
+      var fbcanvas1 = document.getElementById('uber_title');
+      fbcanvas1.innerHTML =
+      "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p>";
+    }, 1000);*/
+
 
     $("#userid_div_s4").css("display","none");
     /*$http.post("ajax/getInfoUserId.php?datum="+datum+"&userid="+userid).success(function(data){
@@ -530,6 +586,7 @@ app.controller('tasksController', function($scope, $http) {
       console.log(el_browser);
       */
     }
+    $("#uber_title").css("display","none");
   }
 
   /*
@@ -539,31 +596,65 @@ app.controller('tasksController', function($scope, $http) {
     console.log("Web "+datum+"-"+userid);
     $("#useridwebid_div_s4").css("display","none");
     $("#useridcmpgnid_div_s4").css("display","none");
+    $("#uber_content_title").css("display","block");
+    var fbcanvas = document.getElementById('uber_content_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
     $http.post("ajax/getUserIdWebId.php?datum="+datum+"&userid="+userid).success(function(data){
       console.log("success");
+      /*var fbcanvas = document.getElementById('uber_content_title');
+      fbcanvas.innerHTML =
+      "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p>";
+      */
+      $("#uber_content_title").css("display","none");
       $scope.infouidwebids = data;
+      if(data==0){
+        $("#uber_content_title").css("display","block");
+        var fbcanvas = document.getElementById('uber_content_title');
+        fbcanvas.innerHTML =
+        "<p>No Data.</p>";
+        console.log("Data NULL");
+        $("#useridwebid_div_s4").css("display","none");
+      }else{
+        var webid = $scope.infouidwebids[0].WebsiteId;
+        var webname = $scope.infouidwebids[0].WebsiteName;
+        //var datum = $scope.infouidwebids[0].DateEntered;
 
-      //var datum = $scope.infouidwebids[0].DateEntered;
-      var webid = $scope.infouidwebids[0].WebsiteId;
-      var webname = $scope.infouidwebids[0].WebsiteName;
-      console.log($scope.infouidwebids[0].DateEntered);
-      console.log(userid);
-      console.log(webid);
-      console.log(webname);
-      console.log(datum);
+        //console.log($scope.infouidwebids[0].DateEntered);
+        //console.log(userid);
+        //console.log(webid);
+        //console.log(webname);
+        //console.log(datum);
+        //console.log($scope.infouidwebids.length);
+        var table = document.getElementById('table_web_div');
+        var table_row_length = document.getElementById('table_web_div').rows.length;
+        var table_row;
+        var cell;
+        for(var i=0;i<$scope.infouidwebids.length;i++){
+          //console.log($scope.infouidwebids[i]);
+          //console.log(table_row_length);
 
-      $("#useridwebid_div_s4").css("display","block");
+          // Check if already exists
+          var check = $('#webidy_a_s4'+i).text();
+          //console.log(check);
+          if(check!=$scope.infouidwebids[i].WebsiteName){
+            table_row = table.insertRow(i+1);
 
-      var fbcanvas1 = document.getElementById('uiwebname');
-      fbcanvas1.innerHTML =
-      "<p><a id='webidy_a_s4'>Check</a></p>";
+            cell1 = table_row.insertCell(0);
+            cell2 = table_row.insertCell(1);
 
-      //Set ng-click attribute
-      var el_webname = document.getElementById("webidy_a_s4");
-      el_webname.getAttribute("ng-click");
-      el_webname.removeAttribute("ng-click");
-      el_webname.setAttribute("ng-click", "getInfoFromWebName('"+webid+"','"+userid+"','"+datum+"')");
-      compile(el_webname);
+            cell1.innerHTML="<p><a href='#' id='webidy_a_s4"+i+"'>"+$scope.infouidwebids[i].WebsiteName+"</a></p>";
+            cell2.innerHTML="<p>"+$scope.infouidwebids[i].Sum+"</p>";
+
+            var el_webname = document.getElementById("webidy_a_s4"+i);
+            el_webname.getAttribute("ng-click");
+            el_webname.removeAttribute("ng-click");
+            el_webname.setAttribute("ng-click", "getInfoFromWebName('"+$scope.infouidwebids[i].WebsiteId+"','"+userid+"','"+datum+"')");
+            compile(el_webname);
+          }
+        }
+        $("#useridwebid_div_s4").css("display","block");
+      } //Check if Data NULL
     });
   }
 
@@ -574,10 +665,58 @@ app.controller('tasksController', function($scope, $http) {
     console.log("Cmpgn "+datum+"-"+userid);
     $("#useridwebid_div_s4").css("display","none");
     $("#useridcmpgnid_div_s4").css("display","none");
+    $("#uber_content_title").css("display","block");
+    var fbcanvas = document.getElementById('uber_content_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
     $http.post("ajax/getUserIdCampaignId.php?datum="+datum+"&userid="+userid).success(function(data){
       console.log("success");
+      /*var fbcanvas = document.getElementById('uber_content_title');
+      fbcanvas.innerHTML =
+      "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p>";
+      */
+      $("#uber_content_title").css("display","none");
+      //$scope.uidcmpgns = data;
       $scope.uidcmpgns = data;
-      $("#useridcmpgnid_div_s4").css("display","block");
+      if(data==0){
+        $("#uber_content_title").css("display","block");
+        var fbcanvas = document.getElementById('uber_content_title');
+        fbcanvas.innerHTML =
+        "<p>No Data.</p>";
+        console.log("Data NULL");
+        $("#useridwebid_div_s4").css("display","none");
+      }else{
+        console.log("DATA EXISTS");
+        var cmpgnid = $scope.uidcmpgns[0].CampaignId;
+        //console.log(userid);
+        //console.log(webid);
+        //console.log(cmpgnid);
+        //console.log(datum);
+        var table = document.getElementById('table_cmpgn_div');
+        var table_row_length = document.getElementById('table_cmpgn_div').rows.length;
+        var table_row;
+        var cell;
+        for(var i=0;i<$scope.uidcmpgns.length;i++){
+          // Check if already exists
+          var check = $('#cmpgnidy_a_s4'+i).text();
+          if(check!=$scope.uidcmpgns[i].CampaignId){
+            table_row = table.insertRow(i+1);
+
+            cell1 = table_row.insertCell(0);
+            cell2 = table_row.insertCell(1);
+
+            cell1.innerHTML="<p><a href='#' id='cmpgnidy_a_s4"+i+"'>"+$scope.uidcmpgns[i].CampaignId+"</a></p>";
+            cell2.innerHTML="<p>"+$scope.uidcmpgns[i].Sum+"</p>";
+
+            var el_cmpgn = document.getElementById("cmpgnidy_a_s4"+i);
+            el_cmpgn.getAttribute("ng-click");
+            el_cmpgn.removeAttribute("ng-click");
+            el_cmpgn.setAttribute("ng-click", "getInfoFromCmpgnId('"+$scope.uidcmpgns[i].CampaignId+"','"+userid+"','"+datum+"')");
+            compile(el_cmpgn);
+          }
+        }
+        $("#useridcmpgnid_div_s4").css("display","block");
+      }
     });
   }
 
@@ -605,7 +744,52 @@ app.controller('tasksController', function($scope, $http) {
     });
   }
 
+  /*
+  * get all Website Info from UserId, DateEntered
+  */
   $scope.getInfoFromWebName = function(webid,userid,datum){
     console.log(webid+"_"+userid+"_"+datum);
+    $("#webinfoinfo_div_s4").hide();
+    $("#cmpgninfoinfo_div_s4").hide();
+    $("#infoinfo_div_s4_title").css("display","block");
+    var fbcanvas = document.getElementById('infoinfo_div_s4_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    $http.post("ajax/getInfoUserIdWebIdS4.php?webid="+webid+"&userid="+userid+"&datum="+datum).success(function(data){
+      console.log("success");
+      $scope.infouidwebiddatums = data;
+      /*var fbcanvas = document.getElementById('infoinfo_div_s4_title');
+      fbcanvas.innerHTML =
+      "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p>";
+      */
+      $("#infoinfo_div_s4_title").css("display","none");
+      $("#webinfoinfo_div_s4").show();
+      console.log($scope.infouidwebiddatums);
+    });
   }
+
+  /*
+  *
+  */
+  $scope.getInfoFromCmpgnId=function(cmpgnid,userid,datum){
+    console.log(cmpgnid+"_"+userid+"_"+datum);
+    $("#webinfoinfo_div_s4").hide();
+    $("#cmpgninfoinfo_div_s4").hide();
+    $("#infoinfo_div_s4_title").css("display","block");
+    var fbcanvas = document.getElementById('infoinfo_div_s4_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    $http.post("ajax/getInfoUserIdCmpgnIdS4.php?cmpgnid="+cmpgnid+"&userid="+userid+"&datum="+datum).success(function(data){
+      console.log("success");
+      $scope.infouidcmpgniddatums = data;
+      console.log($scope.infouidcmpgniddatums);
+      /*var fbcanvas = document.getElementById('infoinfo_div_s4_title');
+      fbcanvas.innerHTML =
+      "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p>";
+      */
+      $("#infoinfo_div_s4_title").css("display","none");
+      $("#cmpgninfoinfo_div_s4").show();
+    });
+  }
+  //END OF TAB4
 });

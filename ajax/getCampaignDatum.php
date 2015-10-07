@@ -1,11 +1,10 @@
 <?php
 require_once '../includes/db.php'; // The mysql database connection script
 $status = '%';
-if(isset($_GET['userid']) && isset($_GET['cmpgnid'])){
-$userid = $_GET['userid'];
+if(isset($_GET['cmpgnid'])){
 $cmpgnid = $_GET['cmpgnid'];
 }
-$query="SELECT UserId, DateEntered, CampaignId, CityId, OsId, BrowserId, SUM(Summe) as Sum FROM `uid_webid_test` WHERE CampaignId = $cmpgnid AND UserId = '$userid' group by DateEntered,UserId,OsId, BrowserId HAVING count(*) >=1 ORDER BY DateEntered DESC";
+$query="SELECT CampaignId,DateEntered,SUM(Summe) as Sum FROM uid_webid_test Where CampaignId='$cmpgnid' GROUP BY DateEntered ORDER BY DateEntered DESC";
 
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 

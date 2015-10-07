@@ -4,7 +4,7 @@ $ip = '%';
 if(isset($_GET['ip'])){
 $ip = $_GET['ip'];
 }
-$query="SELECT IpAddress,UserId, WebsiteId, date(DateEntered) as DateEntered, adtech_webseiten.name WebsiteName FROM testkap.uid_webid_test,absolutebusy.adtech_webseiten  WHERE IpAddress='$ip' AND adtech_webseiten.id = uid_webid_test.WebsiteId GROUP BY UserId,WebsiteId,date(DateEntered) ORDER BY DateEntered DESC";
+$query="SELECT IpAddress,UserId, WebsiteId, date(DateEntered) as DateEntered, adtech_webseiten.name WebsiteName FROM yoggi.uid_webid_test,absolutebusy.adtech_webseiten  WHERE IpAddress='$ip' AND adtech_webseiten.id = uid_webid_test.WebsiteId GROUP BY UserId,WebsiteId,date(DateEntered) ORDER BY DateEntered DESC";
 
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
