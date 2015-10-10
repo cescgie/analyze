@@ -17,14 +17,14 @@
 				<p id="loadsearchcmpgn"></p>
 				<div id = "cmpgnsearch" style="display:none;">
 					<div class="col-lg-12">
-						<label>Suchen: <input ng-model="searchText" class="form-control" placeholder="CampaignId"></label>
+						<label>Suchen: <input ng-model="searchTextCamp" class="form-control" placeholder="CampaignId"></label>
 					</div><br>
 					<table id="searchTextResults" class="table table-striped table-hover">
 						<tr>
 							<th><p>CampaignId</p></th>
 						</tr>
 						<tbody id="cmpgnid_tab">
-							<tr ng-repeat="campaign in campaigns | filter:searchText">
+							<tr ng-repeat="campaign in campaigns | filter:searchTextCamp">
 								<td><p><a class="click" href="#" ng-click="getInfoCmpgnIdS3(campaign.CampaignId)">{{campaign.CampaignId}}</a></p></td>
 							</tr>
 						</tbody>

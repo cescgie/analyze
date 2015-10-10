@@ -19,13 +19,13 @@
 				<p id="loadsearch"></p>
 				<div id = "websearch" style="display:none;">
 					<div class="col-lg-12">
-						<label>Suchen: <input ng-model="searchText" class="form-control" placeholder="WebsiteName"></label>
+						<label>Suchen: <input ng-model="searchTextWeb" class="form-control" placeholder="WebsiteName"></label>
 					</div><br>
 					<table id="searchTextResults" class="table table-striped table-hover">
 						<tr>
 							<th><p>WebsiteName</p></th>
 						</tr>
-						<tr ng-repeat="webname in webnames | filter:searchText">
+						<tr ng-repeat="webname in webnames | filter:searchTextWeb">
 							<td><p><a class="click" href="#" ng-click="getInfoWebName(webname.WebsiteName,webname.WebsiteId)">{{webname.WebsiteName}}</a></p></td>
 						</tr>
 					</table>
