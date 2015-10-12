@@ -193,6 +193,34 @@ app.controller('tasksController', function($scope, $http) {
       "<p>Liste der UserId von WebsiteId : <span style='color: #ff0000'>"+webid+"</span> am <span style='color: #ff0000'>"+datum+"</span> mit >30 Impressions</p>";
     });
   }
+
+  /*
+  * Info von UserId nach Datum und WebsiteId
+  */
+  $scope.sendIdToSub2=function(userid,datum,webid){
+    console.log(userid+"-"+datum+"-"+webid);
+    $("#sub1_div").hide();
+    $("#sub2_div").show();
+    $("#sub1_li").removeClass("active");
+    $("#sub2_li").addClass("active");
+    $("#webinfoinfo_div_s2").hide();
+    var fbcanvas = document.getElementById('infoinfo_div_s2_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    $("#button_infoinfo_div_s2_title").css("display","none");
+    $http.post("ajax/getInfoUserIdWebIdS4.php?webid="+webid+"&userid="+userid+"&datum="+datum).success(function(data){
+      console.log("success");
+      $scope.infouidwebiddatums2s = data;
+      var fbcanvas = document.getElementById('infoinfo_div_s2_title');
+      fbcanvas.innerHTML =
+      "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p><p>WebsiteId : <span style='color: #ff0000'>"+webid+"</span></p>";
+      $("#button_infoinfo_div_s2_title").css("display","block");
+
+      //$("#infoinfo_div_s4_title").css("display","none");
+      $("#webinfoinfo_div_s2").show();
+      //console.log($scope.infouidwebiddatums2s);
+    });
+  }
   //END OF TAB2
 
   //TAB3
@@ -482,6 +510,34 @@ app.controller('tasksController', function($scope, $http) {
     '<input style="color:red;" id="date_input" ng-model="date_input" name="date_input" type="text" value='+datum+'>';
     console.log("setUidInput :"+userid);
   };
+
+  /*
+  * Info von UserId nach Datum und CampaignId
+  */
+  $scope.sendIdToSub3 = function(userid,datum,cmpgnid){
+    console.log(userid+"__"+datum+"__"+cmpgnid);
+    $("#tab3sub1_div").hide();
+    $("#tab3sub2_div").show();
+    $("#tab3sub1_li").removeClass("active");
+    $("#tab3sub2_li").addClass("active");
+    $("#cmpgninfoinfo_div_s3").hide();
+    var fbcanvas = document.getElementById('infoinfo_div_s3_title');
+    fbcanvas.innerHTML =
+    "<p>Loading...</p>";
+    $("#button_infoinfo_div_s3_title").css("display","none");
+
+    $http.post("ajax/getInfoUserIdCmpgnIdS4.php?cmpgnid="+cmpgnid+"&userid="+userid+"&datum="+datum).success(function(data){
+      console.log("success");
+      $scope.infouidcmpgniddatums3s = data;
+      //console.log($scope.infouidcmpgniddatums4s);
+      var fbcanvas = document.getElementById('infoinfo_div_s3_title');
+      fbcanvas.innerHTML =
+      "<p>UserId : <span style='color: #ff0000'>"+userid+"</span></p><p>Datum : <span style='color: #ff0000'>"+datum+"</span></p><p>CampaignId : <span style='color: #ff0000'>"+cmpgnid+"</span></p>";
+
+      $("#button_infoinfo_div_s3_title").css("display","block");
+      $("#cmpgninfoinfo_div_s3").show();
+    });
+  }
   //END OF TAB3
 
   //TAB4

@@ -2,10 +2,10 @@
 
 	<!-- Menu -->
 	<ul class="nav nav-pills">
-  		<li id="seite1_li" style="background-color:CCCCCC;"><a href="#" id="seite1_link">Seite 1</a></li>
-  		<li id="seite2_li" style="background-color:CCCCCC;"><a href="#" id="seite2_link">Seite 2</a></li>
-  		<li id="seite3_li" style="background-color:CCCCCC;"><a href="#" id="seite3_link">Seite 3</a></li>
-			<li id="seite4_li" style="background-color:CCCCCC;"><a href="#" id="seite4_link">Seite 4</a></li>
+  		<li id="seite1_li" style="background-color:CCCCCC;"><a href="#" id="seite1_link">Tab 1</a></li>
+  		<li id="seite2_li" style="background-color:CCCCCC;"><a href="#" id="seite2_link">Tab 2</a></li>
+  		<li id="seite3_li" style="background-color:CCCCCC;"><a href="#" id="seite3_link">Tab 3</a></li>
+			<li id="seite4_li" style="background-color:CCCCCC;"><a href="#" id="seite4_link">Tab 4</a></li>
 	</ul>
 
 	<script type="text/javascript">
@@ -28,6 +28,11 @@
 		$("#seite2_li").addClass("active");
 		$("#seite3_li").removeClass("active");
 		$("#seite4_li").removeClass("active");
+		//Sub Menu
+		$("#sub2_div").hide();
+		$("#sub1_div").show();
+		$("#sub1_li").addClass("active");
+		$("#sub2_li").removeClass("active");
 	})
 	$("#seite3_link").on("click",function(){
 		$("#seite1").hide();
@@ -38,6 +43,11 @@
 		$("#seite2_li").removeClass("active");
 		$("#seite3_li").addClass("active");
 		$("#seite4_li").removeClass("active");
+		//Sub Menu
+		$("#tab3sub2_div").hide();
+		$("#tab3sub1_div").show();
+		$("#tab3sub1_li").addClass("active");
+		$("#tab3sub2_li").removeClass("active");
 	})
 	$("#seite4_link").on("click",function(){
 		$("#seite1").hide();
@@ -49,6 +59,7 @@
 		$("#seite3_li").removeClass("active");
 		$("#seite4_li").addClass("active");
 	})
+
 	</script>
 
 	<!-- SEITE 1 -->

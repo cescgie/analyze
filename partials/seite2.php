@@ -11,15 +11,21 @@
 			</div>
 		</div>
 	</div>
+	<ul class="nav nav-pills">
+			<li id="sub1_li" style="background-color:CCCCCC;"><a href="#" id="sub1_link">Sub 1</a></li>
+			<li id="sub2_li" style="background-color:CCCCCC;"><a href="#" id="sub2_link">Sub 2</a></li>
+	</ul>
+	<div id="sub1_div">
 	<div class="widget-body ">
 		<div class="row">
+			<br>
 			<div class="col-sm-3">
 				<a href="#" ng-click="getWebName()">Alle Webseiten zeigen</a>
 				<!--<button id="arrow" style="display:none;">^</button>-->
 				<p id="loadsearch"></p>
 				<div id = "websearch" style="display:none;">
 					<div class="col-lg-12">
-						<label>Suchen: <input ng-model="searchTextWeb" class="form-control" placeholder="WebsiteName"></label>
+						<label>Suchen: <input ng-model="searchText" class="form-control" placeholder="WebsiteName"></label>
 					</div><br>
 					<table id="searchTextResults" border="0" cellspacing="0" cellpadding="0" width="100%" class="table table-striped table-hover">
 						<tr>
@@ -29,7 +35,6 @@
 								</table>
 							</td>
 						</tr>
-<<<<<<< HEAD
 						<tr>
 							<td>
 								<div style="width:100%; height:500px; overflow:auto;">
@@ -40,10 +45,6 @@
 									</table>
 								</div>
 							</td>
-=======
-						<tr ng-repeat="webname in webnames | filter:searchTextWeb">
-							<td><p><a class="click" href="#" ng-click="getInfoWebName(webname.WebsiteName,webname.WebsiteId)">{{webname.WebsiteName}}</a></p></td>
->>>>>>> origin/master
 						</tr>
 					</table>
 				</div>
@@ -80,7 +81,7 @@
 							<div style="width:100%; height:500px; overflow:auto;">
 								<table cellspacing="0" cellpadding="1" border="0" width="100%" class="table table-striped table-hover" >
 									<tr ng-repeat="webiddat2 in webiddat2s">
-											<td style="text-align:left;"><p><a ng-click="sendIdToSeite4(webiddat2.UserId,webiddat2.DateEntered)">{{webiddat2.UserId}}</p></td>
+											<td style="text-align:left;"><p><a ng-click="sendIdToSub2(webiddat2.UserId,webiddat2.DateEntered,webiddat2.WebsiteId)">{{webiddat2.UserId}}</p></td>
 											<td style="text-align:right;"><p>{{webiddat2.Sum}}</p></td>
 										</tr>
 									</table>
@@ -124,4 +125,49 @@
 			</div>
 		</div>
 	</div>
+</div><!--Sub1-->
+<div id="sub2_div" style="display:none"><br>
+	<p id="infoinfo_div_s2_title"></p>
+	<div id="button_infoinfo_div_s2_title" style="text-align:right;display:none;">
+			<form action="#">
+				<input type="submit" value="Download Excel"/>
+			</form>
+	</div>
+	<div id="webinfoinfo_div_s2" style="display:none">
+		<table border="0" class="table table-striped table-hover">
+		<tr>
+			<th style="text-align:center;"><p>WebsiteName</p></th>
+			<th style="text-align:center;"><p>Uhrzeit</p></th>
+			<th style="text-align:center;"><p>IpAddress</p></th>
+			<th style="text-align:center;"><p>CityId</p></th>
+			<th style="text-align:center;"><p>OsId</p></th>
+			<th style="text-align:center;"><p>BrowserId</p></th>
+			<th style="text-align:center;"><p>Impressions</p></th>
+		</tr>
+		<tr ng-repeat="infouidwebiddatum in infouidwebiddatums2s track by $index">
+			<td style="text-align:center;"><p>{{infouidwebiddatum.WebsiteName}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.Hour}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.IpAddress}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.CityId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.OsId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.BrowserId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.Sum}}</p></td>
+			</tr>
+		</table>
+	</div> <!-- webinfoinfo_div_s4-->
 </div>
+</div>
+<script type="text/javascript">
+$("#sub1_link").on("click",function(){
+	$("#sub2_div").hide();
+	$("#sub1_div").show();
+	$("#sub1_li").addClass("active");
+	$("#sub2_li").removeClass("active");
+})
+$("#sub2_link").on("click",function(){
+	$("#sub1_div").hide();
+	$("#sub2_div").show();
+	$("#sub1_li").removeClass("active");
+	$("#sub2_li").addClass("active");
+})
+</script>

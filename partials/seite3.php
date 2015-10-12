@@ -4,13 +4,19 @@
 			<div class="col-sm-6">
 				<h4 class="bigger lighter">
 					<i class="glyphicon glyphicon-align-justify"></i>&nbsp;
-					CampaignId
+					CAMPAIGN
 				</h4>
 			</div>
 		</div>
 	</div>
+	<ul class="nav nav-pills">
+			<li id="tab3sub1_li" style="background-color:CCCCCC;"><a href="#" id="tab3sub1_link">Sub 1</a></li>
+			<li id="tab3sub2_li" style="background-color:CCCCCC;"><a href="#" id="tab3sub2_link">Sub 2</a></li>
+	</ul>
+	<div id="tab3sub1_div">
 	<div class="widget-body ">
 		<div class="row">
+			<br>
 			<div class="col-sm-3">
 				<a href="#" ng-click="getCampaign()">Alle CampaignId zeigen</a>
 				<!--<button id="arrow" style="display:none;">^</button>-->
@@ -38,14 +44,6 @@
 								</div>
 							</td>
 						</tr>
-<<<<<<< HEAD
-=======
-						<tbody id="cmpgnid_tab">
-							<tr ng-repeat="campaign in campaigns | filter:searchTextCamp">
-								<td><p><a class="click" href="#" ng-click="getInfoCmpgnIdS3(campaign.CampaignId)">{{campaign.CampaignId}}</a></p></td>
-							</tr>
-						</tbody>
->>>>>>> origin/master
 					</table>
 				</div>
 			</div>
@@ -82,7 +80,7 @@
 							<div style="width:100%; height:500px; overflow:auto;">
 								<table cellspacing="0" cellpadding="1" border="0" width="100%" class="table table-striped table-hover">
 									<tr ng-repeat="cmpgniddat in cmpgniddats">
-											<td style="text-align:left;"><p><a ng-click="sendIdToSeite4(cmpgniddat.UserId,cmpgniddat.DateEntered)">{{cmpgniddat.UserId}}</p></td>
+											<td style="text-align:left;"><p><a ng-click="sendIdToSub3(cmpgniddat.UserId,cmpgniddat.DateEntered,cmpgniddat.CampaignId)">{{cmpgniddat.UserId}}</p></td>
 											<td style="text-align:right;"><p>{{cmpgniddat.Sum}}</p></td>
 										</tr>
 									</table>
@@ -97,42 +95,51 @@
 			</div>
 		</div>
 	</div>
+</div> <!-- tab3sub1_div -->
+<div id="tab3sub2_div" style="display:none"><br>
+	<p id="infoinfo_div_s3_title"></p>
+	<div id="button_infoinfo_div_s3_title" style="text-align:right;display:none;">
+			<form action="#">
+				<input type="submit" value="Download Excel"/>
+			</form>
+	</div>
+	<div id="cmpgninfoinfo_div_s3" style="display:none">
+		<table border="0" class="table table-striped table-hover">
+		<tr>
+			<th style="text-align:center;"><p>CampaignId</p></th>
+			<th style="text-align:center;"><p>Uhrzeit</p></th>
+			<th style="text-align:center;"><p>WebsiteName</p></th>
+			<th style="text-align:center;"><p>IpAddress</p></th>
+			<th style="text-align:center;"><p>CityId</p></th>
+			<th style="text-align:center;"><p>OsId</p></th>
+			<th style="text-align:center;"><p>BrowserId</p></th>
+			<th style="text-align:center;"><p>Impressions</p></th>
+		</tr>
+		<tr ng-repeat="infouidcmpgniddatum in infouidcmpgniddatums3s track by $index">
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.CampaignId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.Hour}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.WebsiteName}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.IpAddress}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.CityId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.OsId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.BrowserId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.Sum}}</p></td>
+			</tr>
+		</table>
+	</div> <!-- cmpgninfoinfo_div_s4-->
+</div>
 </div>
 <script type="text/javascript">
-/*
-$("#cmpgn_userid_a").on("click",function(){
-	$("#cmpgnstateid_tab").hide();
-	$("#cmpgnosid_tab").hide();
-	$("#cmpginfouid_tab").hide();
-	$("#cmpgnbrowserid_tab").show();
-	//$("#cmpgnosid_tab").hide();
+$("#tab3sub1_link").on("click",function(){
+	$("#tab3sub2_div").hide();
+	$("#tab3sub1_div").show();
+	$("#tab3sub1_li").addClass("active");
+	$("#tab3sub2_li").removeClass("active");
 })
-$("#cmpgn_osid_a").on("click",function(){
-	$("#cmpgnuserid_tab").hide();
-	$("#cmpgnstateid_tab").hide();
-	$("#cmpginfouid_tab").hide();
-	$("#cmpgnbrowserid_tab").hide();
-	$("#cmpgnosid_tab").show();
+$("#tab3sub2_link").on("click",function(){
+	$("#tab3sub1_div").hide();
+	$("#tab3sub2_div").show();
+	$("#tab3sub1_li").removeClass("active");
+	$("#tab3sub2_li").addClass("active");
 })
-$("#cmpgn_stateid_a").on("click",function(){
-	$("#cmpgnuserid_tab").hide();
-	$("#cmpgnosid_tab").hide();
-	$("#cmpginfouid_tab").hide();
-	$("#cmpgnbrowserid_tab").hide();
-	$("#cmpgnstateid_tab").show();
-})
-$("#cmpgn_browserid_a").on("click",function(){
-	$("#cmpgnuserid_tab").hide();
-	$("#cmpgnosid_tab").hide();
-	$("#cmpginfouid_tab").hide();
-	$("#cmpgnstateid_tab").hide();
-	$("#cmpgnbrowserid_tab").show();
-})
-$("#cmpgninfouid_a").on("click",function(){
-	$("#cmpgnuserid_tab").hide();
-	$("#cmpgnosid_tab").hide();
-	$("#cmpgnstateid_tab").hide();
-	$("#cmpgnbrowserid_tab").hide();
-	$("#cmpginfouid_tab").show();
-})*/
 </script>
