@@ -190,7 +190,7 @@ app.controller('tasksController', function($scope, $http) {
       $("#webdatum_div").css("display","block");
       var fbcanvas = document.getElementById('webdatum_div_title');
       fbcanvas.innerHTML =
-      "<p>Liste der UserId von WebsiteId : <span style='color: #ff0000'>"+webid+"</span> am <span style='color: #ff0000'>"+datum+"</span> mit >30 Impressions</p>";
+      "<p>Liste der UserId von WebsiteId : <span style='color: #ff0000'>"+webid+"</span> am <span style='color: #ff0000'>"+datum+"</span> mit >30 Impressions limit 200</p>";
     });
   }
 
@@ -219,6 +219,13 @@ app.controller('tasksController', function($scope, $http) {
       //$("#infoinfo_div_s4_title").css("display","none");
       $("#webinfoinfo_div_s2").show();
       //console.log($scope.infouidwebiddatums2s);
+    });
+  }
+
+  $scope.updateUidWebDatExcel=function(userid,datum,webid){
+    console.log("updateUidWebDatExcel :"+userid+"-"+datum+"-"+webid);
+    $http.post("excel/Info_von_UserId_WebsiteId.php?userid="+userid+"&datum="+datum+"&webid="+webid).success(function(data){
+      console.log("updateCampaignExcelTable success");
     });
   }
   //END OF TAB2
@@ -536,6 +543,13 @@ app.controller('tasksController', function($scope, $http) {
 
       $("#button_infoinfo_div_s3_title").css("display","block");
       $("#cmpgninfoinfo_div_s3").show();
+    });
+  }
+
+  $scope.updateUidCampDatExcel = function(userid,datum,cmpgnid){
+    console.log("updateUidCampDatExcel :"+userid+"-"+datum+"-"+cmpgnid);
+    $http.post("excel/Info_von_UserId_CampaignId.php?userid="+userid+"&datum="+datum+"&cmpgnid="+cmpgnid).success(function(data){
+      console.log("updateCampaignExcelTable success");
     });
   }
   //END OF TAB3

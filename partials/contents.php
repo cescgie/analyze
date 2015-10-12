@@ -74,4 +74,7 @@
 	<!-- SEITE 4 -->
 	<?php include_once('seite4.php') ?>
 
+	<!-- OS Browser -->
+	<?php include_once('../includes/os_browser.php');?>
+
 </div>

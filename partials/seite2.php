@@ -81,7 +81,7 @@
 							<div style="width:100%; height:500px; overflow:auto;">
 								<table cellspacing="0" cellpadding="1" border="0" width="100%" class="table table-striped table-hover" >
 									<tr ng-repeat="webiddat2 in webiddat2s">
-											<td style="text-align:left;"><p><a ng-click="sendIdToSub2(webiddat2.UserId,webiddat2.DateEntered,webiddat2.WebsiteId)">{{webiddat2.UserId}}</p></td>
+											<td style="text-align:left;"><p><a ng-click="sendIdToSub2(webiddat2.UserId,webiddat2.DateEntered,webiddat2.WebsiteId);updateUidWebDatExcel(webiddat2.UserId,webiddat2.DateEntered,webiddat2.WebsiteId);">{{webiddat2.UserId}}</p></td>
 											<td style="text-align:right;"><p>{{webiddat2.Sum}}</p></td>
 										</tr>
 									</table>
@@ -129,7 +129,7 @@
 <div id="sub2_div" style="display:none"><br>
 	<p id="infoinfo_div_s2_title"></p>
 	<div id="button_infoinfo_div_s2_title" style="text-align:right;display:none;">
-			<form action="#">
+			<form action="excel/Info_von_UserId_WebsiteId.xls">
 				<input type="submit" value="Download Excel"/>
 			</form>
 	</div>
@@ -139,7 +139,7 @@
 			<th style="text-align:center;"><p>WebsiteName</p></th>
 			<th style="text-align:center;"><p>Uhrzeit</p></th>
 			<th style="text-align:center;"><p>IpAddress</p></th>
-			<th style="text-align:center;"><p>CityId</p></th>
+			<th style="text-align:center;"><p>CityName</p></th>
 			<th style="text-align:center;"><p>OsId</p></th>
 			<th style="text-align:center;"><p>BrowserId</p></th>
 			<th style="text-align:center;"><p>Impressions</p></th>
@@ -148,7 +148,7 @@
 			<td style="text-align:center;"><p>{{infouidwebiddatum.WebsiteName}}</p></td>
 			<td style="text-align:center;"><p>{{infouidwebiddatum.Hour}}</p></td>
 			<td style="text-align:center;"><p>{{infouidwebiddatum.IpAddress}}</p></td>
-			<td style="text-align:center;"><p>{{infouidwebiddatum.CityId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.CityName}}</p></td>
 			<td style="text-align:center;"><p>{{infouidwebiddatum.OsId}}</p></td>
 			<td style="text-align:center;"><p>{{infouidwebiddatum.BrowserId}}</p></td>
 			<td style="text-align:center;"><p>{{infouidwebiddatum.Sum}}</p></td>

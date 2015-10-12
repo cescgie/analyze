@@ -80,7 +80,7 @@
 							<div style="width:100%; height:500px; overflow:auto;">
 								<table cellspacing="0" cellpadding="1" border="0" width="100%" class="table table-striped table-hover">
 									<tr ng-repeat="cmpgniddat in cmpgniddats">
-											<td style="text-align:left;"><p><a ng-click="sendIdToSub3(cmpgniddat.UserId,cmpgniddat.DateEntered,cmpgniddat.CampaignId)">{{cmpgniddat.UserId}}</p></td>
+											<td style="text-align:left;"><p><a ng-click="sendIdToSub3(cmpgniddat.UserId,cmpgniddat.DateEntered,cmpgniddat.CampaignId);updateUidCampDatExcel(cmpgniddat.UserId,cmpgniddat.DateEntered,cmpgniddat.CampaignId);">{{cmpgniddat.UserId}}</p></td>
 											<td style="text-align:right;"><p>{{cmpgniddat.Sum}}</p></td>
 										</tr>
 									</table>
@@ -99,7 +99,7 @@
 <div id="tab3sub2_div" style="display:none"><br>
 	<p id="infoinfo_div_s3_title"></p>
 	<div id="button_infoinfo_div_s3_title" style="text-align:right;display:none;">
-			<form action="#">
+			<form action="excel/Info_von_UserId_CampaignId.xls">
 				<input type="submit" value="Download Excel"/>
 			</form>
 	</div>
@@ -110,7 +110,7 @@
 			<th style="text-align:center;"><p>Uhrzeit</p></th>
 			<th style="text-align:center;"><p>WebsiteName</p></th>
 			<th style="text-align:center;"><p>IpAddress</p></th>
-			<th style="text-align:center;"><p>CityId</p></th>
+			<th style="text-align:center;"><p>CityName</p></th>
 			<th style="text-align:center;"><p>OsId</p></th>
 			<th style="text-align:center;"><p>BrowserId</p></th>
 			<th style="text-align:center;"><p>Impressions</p></th>
@@ -120,7 +120,7 @@
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.Hour}}</p></td>
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.WebsiteName}}</p></td>
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.IpAddress}}</p></td>
-			<td style="text-align:center;"><p>{{infouidcmpgniddatum.CityId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.CityName}}</p></td>
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.OsId}}</p></td>
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.BrowserId}}</p></td>
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.Sum}}</p></td>
