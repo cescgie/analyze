@@ -4,7 +4,11 @@ $status = '%';
 if(isset($_GET['webid'])){
 $webid = $_GET['webid'];
 }
+<<<<<<< HEAD
 $query="SELECT WebsiteId,DateEntered,SUM(Summe) as Sum FROM tab_website Where WebsiteId=$webid GROUP BY DateEntered ORDER BY DateEntered DESC";
+=======
+$query="SELECT WebsiteId,DateEntered,Summe as Sum FROM tab_website Where WebsiteId=$webid GROUP BY DateEntered ORDER BY DateEntered DESC";
+>>>>>>> origin/master
 
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 

@@ -11,7 +11,7 @@
     <div class="navbar navbar-default" id="navbar">
       <div class="container" id="navbar-container">
       	<div class="navbar-header">
-      		<a href="/adsi" class="navbar-brand">
+      		<a href="/analyzes" class="navbar-brand">
       			<small>
       				Datenanalyse
       			</small>

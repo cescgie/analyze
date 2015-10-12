@@ -9,7 +9,11 @@
       </div>
       <div class="col-sm-4">
   			<!--<select id="select_datum_uid" data-ng-options="datum.DateEntered for datum in datums track by datum.DateEntered" ng-model="filterDatum" ng-change="getUidDatum(filterDatum)" class="form-control search header-elements-margin">-->
+<<<<<<< HEAD
         <select data-ng-options="datum.DateEntered for datum in datums track by datum.DateEntered" ng-model="filterDatumS2" ng-change="setDateInput(filterDatumS2)" class="form-control search header-elements-margin">
+=======
+        <select data-ng-options="datum.DateEntered for datum in datums track by datum.DateEntered" ng-model="filterDatumS4" ng-change="setDateInput(filterDatumS4)" class="form-control search header-elements-margin">
+>>>>>>> origin/master
          	<option id="select_datum_uid" style="display:none" value="">Wähle ein Datum aus</option>
   			</select>
   		</div>

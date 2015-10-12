@@ -38,6 +38,14 @@
 								</div>
 							</td>
 						</tr>
+<<<<<<< HEAD
+=======
+						<tbody id="cmpgnid_tab">
+							<tr ng-repeat="campaign in campaigns | filter:searchTextCamp">
+								<td><p><a class="click" href="#" ng-click="getInfoCmpgnIdS3(campaign.CampaignId)">{{campaign.CampaignId}}</a></p></td>
+							</tr>
+						</tbody>
+>>>>>>> origin/master
 					</table>
 				</div>
 			</div>

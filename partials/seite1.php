@@ -8,7 +8,7 @@
 			</h4>
 		</div>
 		<div class="col-sm-4">
-			<select data-ng-options="datum.DateEntered for datum in datums track by datum.DateEntered" ng-model="filterDatum" ng-change="getUid(filterDatum)" class="form-control search header-elements-margin">
+			<select data-ng-options="datum.DateEntered for datum in datums track by datum.DateEntered" ng-model="filterDatumS1" ng-change="getUid(filterDatumS1)" class="form-control search header-elements-margin">
 			 	<option style="display:none" value="">Wähle ein Datum aus</option>
 			</select>
 		</div>

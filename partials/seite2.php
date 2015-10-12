@@ -19,7 +19,7 @@
 				<p id="loadsearch"></p>
 				<div id = "websearch" style="display:none;">
 					<div class="col-lg-12">
-						<label>Suchen: <input ng-model="searchText" class="form-control" placeholder="WebsiteName"></label>
+						<label>Suchen: <input ng-model="searchTextWeb" class="form-control" placeholder="WebsiteName"></label>
 					</div><br>
 					<table id="searchTextResults" border="0" cellspacing="0" cellpadding="0" width="100%" class="table table-striped table-hover">
 						<tr>
@@ -29,6 +29,7 @@
 								</table>
 							</td>
 						</tr>
+<<<<<<< HEAD
 						<tr>
 							<td>
 								<div style="width:100%; height:500px; overflow:auto;">
@@ -39,6 +40,10 @@
 									</table>
 								</div>
 							</td>
+=======
+						<tr ng-repeat="webname in webnames | filter:searchTextWeb">
+							<td><p><a class="click" href="#" ng-click="getInfoWebName(webname.WebsiteName,webname.WebsiteId)">{{webname.WebsiteName}}</a></p></td>
+>>>>>>> origin/master
 						</tr>
 					</table>
 				</div>
