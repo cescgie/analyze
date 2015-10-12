@@ -17,17 +17,27 @@
 				<p id="loadsearchcmpgn"></p>
 				<div id = "cmpgnsearch" style="display:none;">
 					<div class="col-lg-12">
-						<label>Suchen: <input ng-model="searchText" class="form-control" placeholder="CampaignId"></label>
+						<label>Suchen: <input ng-model="searchTextCamp" class="form-control" placeholder="CampaignId"></label>
 					</div><br>
-					<table id="searchTextResults" class="table table-striped table-hover">
+					<table id="searchTextResults" border="0" cellspacing="0" cellpadding="0" width="100%" class="table table-striped table-hover">
 						<tr>
-							<th><p>CampaignId</p></th>
+							<td>
+								<table cellspacing="0" cellpadding="1" border="0" width="100%" >
+									<th><p>CampaignId</p></th>
+								</table>
+							</td>
 						</tr>
-						<tbody id="cmpgnid_tab">
-							<tr ng-repeat="campaign in campaigns | filter:searchText">
-								<td><p><a class="click" href="#" ng-click="getInfoCmpgnIdS3(campaign.CampaignId)">{{campaign.CampaignId}}</a></p></td>
-							</tr>
-						</tbody>
+						<tr>
+							<td>
+								<div style="width:100%; height:500px; overflow:auto;">
+									<table id="cmpgnid_tab" cellspacing="0" cellpadding="1" border="0" width="100%" class="table table-striped table-hover">
+										<tr ng-repeat="campaign in campaigns | filter:searchTextCamp">
+											<td><p><a class="click" href="#" ng-click="getInfoCmpgnIdS3(campaign.CampaignId)">{{campaign.CampaignId}}</a></p></td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
 					</table>
 				</div>
 			</div>
@@ -38,10 +48,10 @@
 						<table border="0" class="table table-striped table-hover">
 						<tr>
 							<th width="125px" style="text-align:left;"><p>Datum</p></th>
-							<th width="100px" style="text-align:right;"><p>Sessions</p></th>
+							<th width="100px" style="text-align:right;"><p>Impressions</p></th>
 						</tr>
 						<tr ng-repeat="cmpgninfo in cmpgninfos">
-								<td style="text-align:left;"><p><a ng-click="getInfoCmpgnDat(cmpgninfo.DateEntered,cmpgninfo.CampaignId)">{{cmpgninfo.DateEntered}}</p></td>
+								<td style="text-align:left;"><p><a id="CmpgnExcelUpdate" ng-click="getInfoCmpgnDat(cmpgninfo.DateEntered,cmpgninfo.CampaignId);updateCampaignExcelTable(cmpgninfo.DateEntered,cmpgninfo.CampaignId,cmpgninfo.Sum);" >{{cmpgninfo.DateEntered}}</p></td>
 								<td style="text-align:right;"><p>{{cmpgninfo.Sum}}</p></td>
 							</tr>
 						</table>
@@ -50,14 +60,29 @@
 			<div class="col-sm-6">
 				<p id="cmpgndatum_div_title"></p>
 				<div id="cmpgndatum_div" style="display:none;">
-					<table border="0" class="table table-striped table-hover">
+					<table border="0" cellspacing="0" cellpadding="0" width="100%" class="table table-striped table-hover">
 					<tr>
-						<th width="125px" style="text-align:left;"><p>UserId</p></th>
-						<th width="100px" style="text-align:right;"><p>Sessions</p></th>
+						<td>
+							<table cellspacing="0" cellpadding="1" border="0" width="100%" >
+								<th width="125px" style="text-align:left;"><p>UserId</p></th>
+								<th width="100px" style="text-align:right;"><p>Impressions</p></th>
+							</table>
+						</td>
 					</tr>
-					<tr ng-repeat="cmpgniddat in cmpgniddats">
-							<td style="text-align:left;"><p><a ng-click="sendIdToSeite4(cmpgniddat.UserId,cmpgniddat.DateEntered)">{{cmpgniddat.UserId}}</p></td>
-							<td style="text-align:right;"><p>{{cmpgniddat.Sum}}</p></td>
+					<tr>
+						<td>
+							<div style="width:100%; height:500px; overflow:auto;">
+								<table cellspacing="0" cellpadding="1" border="0" width="100%" class="table table-striped table-hover">
+									<tr ng-repeat="cmpgniddat in cmpgniddats">
+											<td style="text-align:left;"><p><a ng-click="sendIdToSeite4(cmpgniddat.UserId,cmpgniddat.DateEntered)">{{cmpgniddat.UserId}}</p></td>
+											<td style="text-align:right;"><p>{{cmpgniddat.Sum}}</p></td>
+										</tr>
+									</table>
+								</div>
+								<form action="excel/Liste_der_UserId_Von_CampaignId.xls">
+								    <input type="submit" value="Download Excel">
+								</form>
+							</td>
 						</tr>
 					</table>
 				</div>

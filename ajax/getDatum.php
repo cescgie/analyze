@@ -4,7 +4,7 @@ $status = '%';
 if(isset($_GET['datum'])){
 $status = $_GET['datum'];
 }
-$query="SELECT DateEntered FROM userid_ga_test group by DateEntered having count(*) >= 1 ORDER BY DateEntered DESC";
+$query="SELECT DateEntered FROM userid_ga group by DateEntered having count(*) >= 1 ORDER BY DateEntered DESC";
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
 $arr = array();

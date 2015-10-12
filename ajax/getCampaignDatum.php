@@ -4,7 +4,7 @@ $status = '%';
 if(isset($_GET['cmpgnid'])){
 $cmpgnid = $_GET['cmpgnid'];
 }
-$query="SELECT CampaignId,DateEntered,SUM(Summe) as Sum FROM uid_webid_test Where CampaignId='$cmpgnid' GROUP BY DateEntered ORDER BY DateEntered DESC";
+$query="SELECT CampaignId,DateEntered,SUM(Summe) as Sum FROM tab_campaign Where CampaignId='$cmpgnid' GROUP BY DateEntered ORDER BY DateEntered DESC";
 
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 

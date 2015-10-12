@@ -132,6 +132,8 @@ app.controller('tasksController', function($scope, $http) {
   var fbcanvas = document.getElementById('loadsearch');
   fbcanvas.innerHTML =
   "<p>Loading...</p>";
+  $("#loadsearch").css("display","block");
+  $("#websearch").css("display","none");
   $http.post("ajax/getWebsiteName.php").success(function(data){
         $("#websearch").css("display","block");
         $("#loadsearch").css("display","none");
@@ -161,6 +163,15 @@ app.controller('tasksController', function($scope, $http) {
     });
   }
 
+  /*
+  * Update Excel-Datei für Website
+  */
+  $scope.updateWebsiteExcelTable=function(datum,webid,impr){
+    console.log("updateWebsiteExcelTable "+datum+"_"+webid+"_"+impr);
+    $http.post("excel/Liste_der_UserId_Von_WebsiteId.php?webid="+webid+"&datum="+datum+"&impr="+impr).success(function(data){
+      console.log("updateWebsiteExcelTable success");
+    });
+  }
 
   /*
   * Get info from WebsiteId nach Datum
@@ -179,7 +190,7 @@ app.controller('tasksController', function($scope, $http) {
       $("#webdatum_div").css("display","block");
       var fbcanvas = document.getElementById('webdatum_div_title');
       fbcanvas.innerHTML =
-      "<p>Liste der UserId von WebsiteId : <span style='color: #ff0000'>"+webid+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
+      "<p>Liste der UserId von WebsiteId : <span style='color: #ff0000'>"+webid+"</span> am <span style='color: #ff0000'>"+datum+"</span> mit >30 Impressions</p>";
     });
   }
   //END OF TAB2
@@ -195,6 +206,8 @@ app.controller('tasksController', function($scope, $http) {
   var fbcanvas = document.getElementById('loadsearchcmpgn');
   fbcanvas.innerHTML =
   "<p>Loading...</p>";
+  $("#loadsearchcmpgn").css("display","block");
+  $("#cmpgnsearch").css("display","none");
   $http.post("ajax/getCampaignId.php").success(function(data){
         $("#cmpgnsearch").css("display","block");
         $("#loadsearchcmpgn").css("display","none");
@@ -226,14 +239,15 @@ app.controller('tasksController', function($scope, $http) {
     "<p>Loading...</p>";
     $http.post("ajax/getCampaignDatum.php?cmpgnid="+cmpgnid).success(function(data){
       $("#cmpgninfo").css("display","block");
-      $("#cmpgndat").css("display","none");
+      //$("#cmpgndat").css("display","none");
       $scope.cmpgninfos = data;
       console.log('success');
-      var fbcanvas1 = document.getElementById('cmpgn_satz');
+      var fbcanvas1 = document.getElementById('cmpgndat');
       fbcanvas1.innerHTML =
       "<p>CampaignId : <span style='color: #ff0000;'>"+cmpgnid+"</span></p>";
     });
   }
+
   $scope.getInfoCmpgnDat=function (datum,cmpgnid){
     $("#cmpgndatum_div").css("display","none");
     var fbcanvas = document.getElementById('cmpgndatum_div_title');
@@ -248,7 +262,16 @@ app.controller('tasksController', function($scope, $http) {
       var fbcanvas = document.getElementById('cmpgndatum_div_title');
       fbcanvas.innerHTML =
       "<p>Liste der UserId von CampaignId : <span style='color: #ff0000'>"+cmpgnid+"</span> am <span style='color: #ff0000'>"+datum+"</span></p>";
+    });
+  }
 
+  /*
+  * Update Excel Datei für Campaign
+  */
+  $scope.updateCampaignExcelTable=function(datum,cmpgnid,impr){
+    console.log("updateCampaignExcelTable "+datum+"_"+cmpgnid);
+    $http.post("excel/Liste_der_UserId_Von_CampaignId.php?cmpgnid="+cmpgnid+"&datum="+datum+"&impr="+impr).success(function(data){
+      console.log("updateCampaignExcelTable success");
     });
   }
 
@@ -452,11 +475,11 @@ app.controller('tasksController', function($scope, $http) {
 
     var fbcanvas1 = document.getElementById('uid_input_hid');
     fbcanvas1.innerHTML =
-    '<input id="uid_input" ng-model="uid_input" name="uid_input" type="text" value='+userid+'>';
+    '<input style="color:red;" id="uid_input" ng-model="uid_input" name="uid_input" type="text" value='+userid+'>';
 
     var fbcanvas2 = document.getElementById('date_input_hid');
     fbcanvas2.innerHTML =
-    '<input id="date_input" ng-model="date_input" name="date_input" type="text" value='+datum+'>';
+    '<input style="color:red;" id="date_input" ng-model="date_input" name="date_input" type="text" value='+datum+'>';
     console.log("setUidInput :"+userid);
   };
   //END OF TAB3

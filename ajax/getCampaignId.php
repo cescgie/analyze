@@ -2,7 +2,7 @@
 require_once '../includes/db.php'; // The mysql database connection script
 
 
-$query="SELECT CampaignId,count(*) as Summe FROM `uid_webid_test` GROUP BY CampaignId HAVING count(*) >=1 ORDER BY CampaignId ASC";
+$query="SELECT CampaignId,count(*) as Summe FROM `uid_webid` GROUP BY CampaignId HAVING count(*) >=1 ORDER BY CampaignId ASC";
 
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 

@@ -5,7 +5,7 @@ $uid = '%';
 if(isset($_GET['datum']) && isset($_GET['userid'])){
 	$datum = $_GET['datum'];
 	$uid = $_GET['userid'];
-	$query="SELECT Date(DateEntered) as DateEntered,CampaignId,SUM(Summe) as Sum from uid_webid_test WHERE UserId = '$uid' AND Date(DateEntered) = '$datum' GROUP BY CampaignId ORDER BY CampaignId ASC";
+	$query="SELECT Date(DateEntered) as DateEntered,CampaignId,SUM(Summe) as Sum from uid_webid WHERE UserId = '$uid' AND Date(DateEntered) = '$datum' GROUP BY CampaignId ORDER BY Sum DESC";
 }
 
 $result = $mysqli->query($query) or die($mysqli->error.__LINE__);

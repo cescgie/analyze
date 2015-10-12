@@ -9,7 +9,7 @@
       </div>
       <div class="col-sm-4">
   			<!--<select id="select_datum_uid" data-ng-options="datum.DateEntered for datum in datums track by datum.DateEntered" ng-model="filterDatum" ng-change="getUidDatum(filterDatum)" class="form-control search header-elements-margin">-->
-        <select data-ng-options="datum.DateEntered for datum in datums track by datum.DateEntered" ng-model="filterDatum" ng-change="setDateInput(filterDatum)" class="form-control search header-elements-margin">
+        <select data-ng-options="datum.DateEntered for datum in datums track by datum.DateEntered" ng-model="filterDatumS2" ng-change="setDateInput(filterDatumS2)" class="form-control search header-elements-margin">
          	<option id="select_datum_uid" style="display:none" value="">Wähle ein Datum aus</option>
   			</select>
   		</div>
@@ -59,7 +59,7 @@
           <table id="table_web_div" border="0" class="table table-striped table-hover">
           <tr>
             <th><p>WebsiteName</p></th>
-            <th><p>Sessions</p></th>
+            <th><p>Impressions</p></th>
           </tr>
           <!--<tr ng-repeat="infouidwebid in infouidwebids track by $index">
               <td style="text-align:left;"><p>{{infouidwebid.WebsiteName}}</p></td>
@@ -71,7 +71,7 @@
           <table id="table_cmpgn_div" border="0" class="table table-striped table-hover">
           <tr>
             <th><p>CampaignId</p></th>
-            <th><p>Sessions</p></th>
+            <th><p>Impressions</p></th>
           </tr>
           <!--<tr ng-repeat="uidcmpgn in uidcmpgns track by $index">
               <td style="text-align:left;"><p>{{uidcmpgn.CampaignId}}</p></td>
@@ -91,7 +91,7 @@
             <th style="text-align:left;"><p>CityId</p></th>
             <th style="text-align:left;"><p>OsId</p></th>
             <th style="text-align:left;"><p>BrowserId</p></th>
-            <th style="text-align:left;"><p>Sessions</p></th>
+            <th style="text-align:left;"><p>Impressions</p></th>
           </tr>
           <tr ng-repeat="infouidwebiddatum in infouidwebiddatums track by $index">
             <td style="text-align:right;"><p>{{infouidwebiddatum.WebsiteName}}</p></td>
@@ -114,7 +114,7 @@
             <th style="text-align:left;"><p>CityId</p></th>
             <th style="text-align:left;"><p>OsId</p></th>
             <th style="text-align:left;"><p>BrowserId</p></th>
-            <th style="text-align:left;"><p>Sessions</p></th>
+            <th style="text-align:left;"><p>Impressions</p></th>
           </tr>
           <tr ng-repeat="infouidcmpgniddatum in infouidcmpgniddatums track by $index">
             <td style="text-align:right;"><p>{{infouidcmpgniddatum.CampaignId}}</p></td>
