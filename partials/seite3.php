@@ -108,11 +108,11 @@
 		<tr>
 			<th style="text-align:center;"><p>CampaignId</p></th>
 			<th style="text-align:center;"><p>Uhrzeit</p></th>
-			<th style="text-align:center;"><p>WebsiteName</p></th>
+			<th style="text-align:center;"><p>Website</p></th>
 			<th style="text-align:center;"><p>IpAddress</p></th>
-			<th style="text-align:center;"><p>CityName</p></th>
-			<th style="text-align:center;"><p>OsId</p></th>
-			<th style="text-align:center;"><p>BrowserId</p></th>
+			<th style="text-align:center;"><p>CityId</p></th>
+			<th style="text-align:center;"><p>Os</p></th>
+			<th style="text-align:center;"><p>Browser</p></th>
 			<th style="text-align:center;"><p>Impressions</p></th>
 		</tr>
 		<tr ng-repeat="infouidcmpgniddatum in infouidcmpgniddatums3s track by $index">
@@ -120,9 +120,9 @@
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.Hour}}</p></td>
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.WebsiteName}}</p></td>
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.IpAddress}}</p></td>
-			<td style="text-align:center;"><p>{{infouidcmpgniddatum.CityName}}</p></td>
-			<td style="text-align:center;"><p>{{infouidcmpgniddatum.OsId}}</p></td>
-			<td style="text-align:center;"><p>{{infouidcmpgniddatum.BrowserId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.CityId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.OSName}}</p></td>
+			<td style="text-align:center;"><p>{{infouidcmpgniddatum.BrowserName}}</p></td>
 			<td style="text-align:center;"><p>{{infouidcmpgniddatum.Sum}}</p></td>
 			</tr>
 		</table>

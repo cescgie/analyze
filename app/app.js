@@ -209,7 +209,7 @@ app.controller('tasksController', function($scope, $http) {
     "<p>Loading...</p>";
     $("#button_infoinfo_div_s2_title").css("display","none");
     $http.post("ajax/getInfoUserIdWebIdS4.php?webid="+webid+"&userid="+userid+"&datum="+datum).success(function(data){
-      console.log("success");
+      console.log("success_ss");
       $scope.infouidwebiddatums2s = data;
       var fbcanvas = document.getElementById('infoinfo_div_s2_title');
       fbcanvas.innerHTML =
@@ -218,7 +218,7 @@ app.controller('tasksController', function($scope, $http) {
 
       //$("#infoinfo_div_s4_title").css("display","none");
       $("#webinfoinfo_div_s2").show();
-      //console.log($scope.infouidwebiddatums2s);
+      console.log($scope.infouidwebiddatums2s);
     });
   }
 
@@ -690,6 +690,8 @@ app.controller('tasksController', function($scope, $http) {
     $("#useridwebid_div_s4").css("display","none");
     $("#useridcmpgnid_div_s4").css("display","none");
     $("#uber_content_title").css("display","block");
+    $("#webinfoinfo_div_s4").hide();
+    $("#cmpgninfoinfo_div_s4").hide();
     var fbcanvas = document.getElementById('uber_content_title');
     fbcanvas.innerHTML =
     "<p>Loading...</p>";
@@ -742,7 +744,7 @@ app.controller('tasksController', function($scope, $http) {
             var el_webname = document.getElementById("webidy_a_s4"+i);
             el_webname.getAttribute("ng-click");
             el_webname.removeAttribute("ng-click");
-            el_webname.setAttribute("ng-click", "getInfoFromWebName('"+$scope.infouidwebids[i].WebsiteId+"','"+userid+"','"+datum+"')");
+            el_webname.setAttribute("ng-click", "getInfoFromWebName('"+$scope.infouidwebids[i].WebsiteId+"','"+userid+"','"+datum+"');updateUidWebDatExcel('"+userid+"','"+datum+"','"+$scope.infouidwebids[i].WebsiteId+"');");
             compile(el_webname);
           }
         }
@@ -759,6 +761,8 @@ app.controller('tasksController', function($scope, $http) {
     $("#useridwebid_div_s4").css("display","none");
     $("#useridcmpgnid_div_s4").css("display","none");
     $("#uber_content_title").css("display","block");
+    $("#webinfoinfo_div_s4").hide();
+    $("#cmpgninfoinfo_div_s4").hide();
     var fbcanvas = document.getElementById('uber_content_title');
     fbcanvas.innerHTML =
     "<p>Loading...</p>";
@@ -804,7 +808,7 @@ app.controller('tasksController', function($scope, $http) {
             var el_cmpgn = document.getElementById("cmpgnidy_a_s4"+i);
             el_cmpgn.getAttribute("ng-click");
             el_cmpgn.removeAttribute("ng-click");
-            el_cmpgn.setAttribute("ng-click", "getInfoFromCmpgnId('"+$scope.uidcmpgns[i].CampaignId+"','"+userid+"','"+datum+"')");
+            el_cmpgn.setAttribute("ng-click", "getInfoFromCmpgnId('"+$scope.uidcmpgns[i].CampaignId+"','"+userid+"','"+datum+"');updateUidCampDatExcel('"+userid+"','"+datum+"','"+$scope.uidcmpgns[i].CampaignId+"');");
             compile(el_cmpgn);
           }
         }

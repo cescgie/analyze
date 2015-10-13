@@ -136,21 +136,21 @@
 	<div id="webinfoinfo_div_s2" style="display:none">
 		<table border="0" class="table table-striped table-hover">
 		<tr>
-			<th style="text-align:center;"><p>WebsiteName</p></th>
+			<th style="text-align:center;"><p>Website</p></th>
 			<th style="text-align:center;"><p>Uhrzeit</p></th>
 			<th style="text-align:center;"><p>IpAddress</p></th>
-			<th style="text-align:center;"><p>CityName</p></th>
-			<th style="text-align:center;"><p>OsId</p></th>
-			<th style="text-align:center;"><p>BrowserId</p></th>
+			<th style="text-align:center;"><p>CityId</p></th>
+			<th style="text-align:center;"><p>Os</p></th>
+			<th style="text-align:center;"><p>Browser</p></th>
 			<th style="text-align:center;"><p>Impressions</p></th>
 		</tr>
 		<tr ng-repeat="infouidwebiddatum in infouidwebiddatums2s track by $index">
 			<td style="text-align:center;"><p>{{infouidwebiddatum.WebsiteName}}</p></td>
 			<td style="text-align:center;"><p>{{infouidwebiddatum.Hour}}</p></td>
 			<td style="text-align:center;"><p>{{infouidwebiddatum.IpAddress}}</p></td>
-			<td style="text-align:center;"><p>{{infouidwebiddatum.CityName}}</p></td>
-			<td style="text-align:center;"><p>{{infouidwebiddatum.OsId}}</p></td>
-			<td style="text-align:center;"><p>{{infouidwebiddatum.BrowserId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.CityId}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.OSName}}</p></td>
+			<td style="text-align:center;"><p>{{infouidwebiddatum.BrowserName}}</p></td>
 			<td style="text-align:center;"><p>{{infouidwebiddatum.Sum}}</p></td>
 			</tr>
 		</table>

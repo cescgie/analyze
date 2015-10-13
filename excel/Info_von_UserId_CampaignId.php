@@ -87,11 +87,11 @@ echo date('H:i:s') , " Add some data" , EOL;
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('B6', 'CampaignId')
             ->setCellValue('C6', 'Uhrzeit')
-            ->setCellValue('D6', 'WebsiteId')
+            ->setCellValue('D6', 'Website')
             ->setCellValue('E6', 'IpAddress')
-            ->setCellValue('F6', 'CityName')
-            ->setCellValue('G6', 'OsId')
-            ->setCellValue('H6', 'BrowserId')
+            ->setCellValue('F6', 'City')
+            ->setCellValue('G6', 'Os')
+            ->setCellValue('H6', 'Browser')
             ->setCellValue('I6', 'Impressions');
 $objPHPExcel->getActiveSheet()->getStyle('B6:I6')->applyFromArray($menuStyle);
 
@@ -106,8 +106,9 @@ if(isset($_GET['datum']) && isset($_GET['cmpgnid']) && isset($_GET['userid'])  )
 
 	// Miscellaneous glyphs, UTF-
 
-  $query="SELECT Date(DateEntered) as DateEntered,CampaignId,WebsiteId,IpAddress,Hour,CityId,OsId,BrowserId,SUM(Summe) as Sum,adtech_webseiten.name WebsiteName,adtech_city.name CityName FROM yoggi.uid_webid,absolutebusy.adtech_webseiten,absolutebusy.adtech_city WHERE UserId = '$userid' AND Date(DateEntered) = '$datum' AND CampaignId = '$cmpgnid' AND adtech_webseiten.id = uid_webid.WebsiteId AND adtech_city.id = uid_webid.CityId GROUP BY Hour,CampaignId,WebsiteId,OsId,BrowserId ORDER BY Hour ASC";
+  //$query="SELECT Date(DateEntered) as DateEntered,CampaignId,WebsiteId,IpAddress,Hour,CityId,OsId,BrowserId,SUM(Summe) as Sum,adtech_webseiten.name WebsiteName,adtech_city.name CityName FROM yoggi.uid_webid,absolutebusy.adtech_webseiten,absolutebusy.adtech_city WHERE UserId = '$userid' AND Date(DateEntered) = '$datum' AND CampaignId = '$cmpgnid' AND adtech_webseiten.id = uid_webid.WebsiteId AND adtech_city.id = uid_webid.CityId GROUP BY Hour,CampaignId,WebsiteId,OsId,BrowserId ORDER BY Hour ASC";
   //$query="SELECT Date(DateEntered) as DateEntered,WebsiteId,IpAddress,Hour,CityId,OsId,BrowserId,SUM(Summe) as Sum,adtech_webseiten.name WebsiteName,adtech_city.name CityName FROM yoggi.uid_webid,absolutebusy.adtech_webseiten,absolutebusy.adtech_city WHERE UserId = '$userid' AND Date(DateEntered) = '$datum' AND WebsiteId = '$webid' AND adtech_webseiten.id = uid_webid.WebsiteId AND adtech_city.id = uid_webid.CityId GROUP BY Hour,WebsiteId,OsId,BrowserId ORDER BY Hour ASC";
+	$query="SELECT Date(DateEntered) as DateEntered,CampaignId,WebsiteId,IpAddress,Hour,CityId,OsId,BrowserId,SUM(Summe) as Sum,adtech_webseiten.name WebsiteName,adtech_city.name CityName,os_type.name OSName,browser_type.name BrowserName FROM yoggi.uid_webid,yoggi.adtech_webseiten,yoggi.adtech_city,yoggi.os_type,yoggi.browser_type  WHERE UserId = '$userid' AND Date(DateEntered) = '$datum' AND CampaignId = '$cmpgnid' AND adtech_webseiten.id = uid_webid.WebsiteId AND adtech_city.id = uid_webid.CityId AND os_type.id = uid_webid.OsId AND browser_type.id = uid_webid.BrowserId GROUP BY Hour,CampaignId,WebsiteId,OsId,BrowserId ORDER BY Hour ASC";
 
 	$result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
@@ -121,9 +122,9 @@ if(isset($_GET['datum']) && isset($_GET['cmpgnid']) && isset($_GET['userid'])  )
 		$objPHPExcel->getActiveSheet()->getCell('C'.$r)->setValue($value['Hour']);
     $objPHPExcel->getActiveSheet()->getCell('D'.$r)->setValue($value['WebsiteName']);
     $objPHPExcel->getActiveSheet()->getCell('E'.$r)->setValue($value['IpAddress']);
-    $objPHPExcel->getActiveSheet()->getCell('F'.$r)->setValue($value['CityName']);
-    $objPHPExcel->getActiveSheet()->getCell('G'.$r)->setValue($value['OsId']);
-    $objPHPExcel->getActiveSheet()->getCell('H'.$r)->setValue($value['BrowserId']);
+    $objPHPExcel->getActiveSheet()->getCell('F'.$r)->setValue($value['CityId']);
+    $objPHPExcel->getActiveSheet()->getCell('G'.$r)->setValue($value['OSName']);
+    $objPHPExcel->getActiveSheet()->getCell('H'.$r)->setValue($value['BrowserName']);
     $objPHPExcel->getActiveSheet()->getCell('I'.$r)->setValue($value['Sum']);
 
     $objPHPExcel->setActiveSheetIndex(0)
@@ -137,8 +138,8 @@ if(isset($_GET['datum']) && isset($_GET['cmpgnid']) && isset($_GET['userid'])  )
   $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(25);
   $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
   $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(20);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(15);
   $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setWidth(10);
 
 	$objPHPExcel->getActiveSheet()->getStyle("B7:I".$maxrow)->applyFromArray($greyCellBackroundStyle);

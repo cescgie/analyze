@@ -4,7 +4,7 @@
       <div class="col-sm-6">
         <h4 class="bigger lighter">
           <i class="glyphicon glyphicon-align-justify"></i>&nbsp;
-          UserId
+          USERID
         </h4>
       </div>
       <div class="col-sm-4">
@@ -83,14 +83,19 @@
       <div class="col-sm-7" id="uber_all_col7">
         <p id="infoinfo_div_s4_title"></p>
         <div id="webinfoinfo_div_s4" style="display:none">
+          <div style="text-align:right;">
+              <form action="excel/Info_von_UserId_WebsiteId.xls">
+                <input type="submit" value="Download Excel"/>
+              </form>
+          </div>
           <table border="0" class="table table-striped table-hover">
           <tr>
-            <th style="text-align:left;"><p>WebsiteName</p></th>
+            <th style="text-align:left;"><p>Website</p></th>
             <th style="text-align:left;"><p>Uhrzeit</p></th>
             <th style="text-align:left;"><p>IpAddress</p></th>
             <th style="text-align:left;"><p>CityId</p></th>
-            <th style="text-align:left;"><p>OsId</p></th>
-            <th style="text-align:left;"><p>BrowserId</p></th>
+            <th style="text-align:left;"><p>Os</p></th>
+            <th style="text-align:left;"><p>Browser</p></th>
             <th style="text-align:left;"><p>Impressions</p></th>
           </tr>
           <tr ng-repeat="infouidwebiddatum in infouidwebiddatums track by $index">
@@ -98,22 +103,27 @@
             <td style="text-align:right;"><p>{{infouidwebiddatum.Hour}}</p></td>
             <td style="text-align:right;"><p>{{infouidwebiddatum.IpAddress}}</p></td>
             <td style="text-align:right;"><p>{{infouidwebiddatum.CityId}}</p></td>
-            <td style="text-align:right;"><p>{{infouidwebiddatum.OsId}}</p></td>
-            <td style="text-align:right;"><p>{{infouidwebiddatum.BrowserId}}</p></td>
+            <td style="text-align:right;"><p>{{infouidwebiddatum.OSName}}</p></td>
+            <td style="text-align:right;"><p>{{infouidwebiddatum.BrowserName}}</p></td>
             <td style="text-align:right;"><p>{{infouidwebiddatum.Sum}}</p></td>
             </tr>
           </table>
         </div> <!-- webinfoinfo_div_s4-->
         <div id="cmpgninfoinfo_div_s4" style="display:none">
+          <div align="right">
+            <form action="excel/Info_von_UserId_CampaignId.xls">
+              <input type="submit" value="Download Excel">
+            </form>
+          </div>
           <table border="0" class="table table-striped table-hover">
           <tr>
             <th style="text-align:left;"><p>CampaignId</p></th>
             <th style="text-align:left;"><p>Uhrzeit</p></th>
-            <th style="text-align:left;"><p>WebsiteName</p></th>
+            <th style="text-align:left;"><p>Website</p></th>
             <th style="text-align:left;"><p>IpAddress</p></th>
             <th style="text-align:left;"><p>CityId</p></th>
-            <th style="text-align:left;"><p>OsId</p></th>
-            <th style="text-align:left;"><p>BrowserId</p></th>
+            <th style="text-align:left;"><p>Os</p></th>
+            <th style="text-align:left;"><p>Browser</p></th>
             <th style="text-align:left;"><p>Impressions</p></th>
           </tr>
           <tr ng-repeat="infouidcmpgniddatum in infouidcmpgniddatums track by $index">
@@ -122,8 +132,8 @@
             <td style="text-align:right;"><p>{{infouidcmpgniddatum.WebsiteName}}</p></td>
             <td style="text-align:right;"><p>{{infouidcmpgniddatum.IpAddress}}</p></td>
             <td style="text-align:right;"><p>{{infouidcmpgniddatum.CityId}}</p></td>
-            <td style="text-align:right;"><p>{{infouidcmpgniddatum.OsId}}</p></td>
-            <td style="text-align:right;"><p>{{infouidcmpgniddatum.BrowserId}}</p></td>
+            <td style="text-align:right;"><p>{{infouidcmpgniddatum.OSName}}</p></td>
+            <td style="text-align:right;"><p>{{infouidcmpgniddatum.BrowserName}}</p></td>
             <td style="text-align:right;"><p>{{infouidcmpgniddatum.Sum}}</p></td>
             </tr>
           </table>

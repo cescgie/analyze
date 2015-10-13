@@ -85,12 +85,12 @@ $greyCellBackroundStyle = array(
 // Add some data
 echo date('H:i:s') , " Add some data" , EOL;
 $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('B6', 'WebsiteName')
+            ->setCellValue('B6', 'Website')
             ->setCellValue('C6', 'Uhrzeit')
             ->setCellValue('D6', 'IpAddress')
-            ->setCellValue('E6', 'CityName')
-            ->setCellValue('F6', 'OsId')
-            ->setCellValue('G6', 'BrowserId')
+            ->setCellValue('E6', 'CityId')
+            ->setCellValue('F6', 'Os')
+            ->setCellValue('G6', 'Browser')
             ->setCellValue('H6', 'Impressions');
 $objPHPExcel->getActiveSheet()->getStyle('B6:H6')->applyFromArray($menuStyle);
 
@@ -106,7 +106,8 @@ if(isset($_GET['datum']) && isset($_GET['webid']) && isset($_GET['userid'])  ){
 	// Miscellaneous glyphs, UTF-
 
 	//$query="SELECT Date(DateEntered) as DateEntered,UserId,CampaignId,SUM(Summe) as Sum FROM uid_webid WHERE Date(DateEntered) = '$datum' AND CampaignId = '$cmpgnid' GROUP BY UserId ORDER BY Sum DESC";
-  $query="SELECT Date(DateEntered) as DateEntered,WebsiteId,IpAddress,Hour,CityId,OsId,BrowserId,SUM(Summe) as Sum,adtech_webseiten.name WebsiteName,adtech_city.name CityName FROM yoggi.uid_webid,absolutebusy.adtech_webseiten,absolutebusy.adtech_city WHERE UserId = '$userid' AND Date(DateEntered) = '$datum' AND WebsiteId = '$webid' AND adtech_webseiten.id = uid_webid.WebsiteId AND adtech_city.id = uid_webid.CityId GROUP BY Hour,WebsiteId,OsId,BrowserId ORDER BY Hour ASC";
+  //$query="SELECT Date(DateEntered) as DateEntered,WebsiteId,IpAddress,Hour,CityId,OsId,BrowserId,SUM(Summe) as Sum,adtech_webseiten.name WebsiteName,adtech_city.name CityName FROM yoggi.uid_webid,absolutebusy.adtech_webseiten,absolutebusy.adtech_city WHERE UserId = '$userid' AND Date(DateEntered) = '$datum' AND WebsiteId = '$webid' AND adtech_webseiten.id = uid_webid.WebsiteId AND adtech_city.id = uid_webid.CityId GROUP BY Hour,WebsiteId,OsId,BrowserId ORDER BY Hour ASC";
+	$query="SELECT Date(DateEntered) as DateEntered,WebsiteId,IpAddress,Hour,CityId,OsId,BrowserId,SUM(Summe) as Sum,adtech_webseiten.name WebsiteName,os_type.name OSName,browser_type.name BrowserName FROM yoggi.uid_webid,yoggi.adtech_webseiten,yoggi.os_type,yoggi.browser_type WHERE UserId = '$userid' AND Date(DateEntered) = '$datum' AND WebsiteId = '$webid' AND adtech_webseiten.id = uid_webid.WebsiteId AND os_type.id = uid_webid.OsId AND browser_type.id = uid_webid.BrowserId GROUP BY Hour,WebsiteId,OsId,BrowserId ORDER BY Hour ASC";
 
 	$result = $mysqli->query($query) or die($mysqli->error.__LINE__);
 
@@ -119,9 +120,9 @@ if(isset($_GET['datum']) && isset($_GET['webid']) && isset($_GET['userid'])  ){
 		$objPHPExcel->getActiveSheet()->getCell('B'.$r)->setValue($value['WebsiteName']);
 		$objPHPExcel->getActiveSheet()->getCell('C'.$r)->setValue($value['Hour']);
     $objPHPExcel->getActiveSheet()->getCell('D'.$r)->setValue($value['IpAddress']);
-    $objPHPExcel->getActiveSheet()->getCell('E'.$r)->setValue($value['CityName']);
-    $objPHPExcel->getActiveSheet()->getCell('F'.$r)->setValue($value['OsId']);
-    $objPHPExcel->getActiveSheet()->getCell('G'.$r)->setValue($value['BrowserId']);
+    $objPHPExcel->getActiveSheet()->getCell('E'.$r)->setValue($value['CityId']);
+    $objPHPExcel->getActiveSheet()->getCell('F'.$r)->setValue($value['OSName']);
+    $objPHPExcel->getActiveSheet()->getCell('G'.$r)->setValue($value['BrowserName']);
     $objPHPExcel->getActiveSheet()->getCell('H'.$r)->setValue($value['Sum']);
 
     $objPHPExcel->setActiveSheetIndex(0)
@@ -134,8 +135,8 @@ if(isset($_GET['datum']) && isset($_GET['webid']) && isset($_GET['userid'])  ){
 	$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(10);
   $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
   $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(15);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(10);
-  $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(10);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+  $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(15);
   $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(10);
 
 	$objPHPExcel->getActiveSheet()->getStyle("B7:H".$maxrow)->applyFromArray($greyCellBackroundStyle);
